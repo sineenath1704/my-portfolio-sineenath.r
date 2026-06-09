@@ -1,7 +1,9 @@
 function Home() {
   return (
     <section id="home">
-      <h1>สวัสดี ฉันคือ ...</h1>
+       <div className="text-3xl font-bold text-blue-500">
+      สวัสดี Tailwind!
+    </div>
     </section>
   )
 }
