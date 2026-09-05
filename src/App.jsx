@@ -26,6 +26,8 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<MainLayout />} />
         <Route path="/resume" element={<ResumeSwitcher />} />
+        <Route path="/Resume_Switcher" element={<ResumeSwitcher />} />
+        <Route path="/Resume_Switcher.jsx" element={<ResumeSwitcher />} />
       </Routes>
     </BrowserRouter>
   )
