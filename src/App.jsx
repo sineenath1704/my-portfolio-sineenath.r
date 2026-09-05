@@ -5,6 +5,7 @@ import Home from './components/Home'
 import About from './components/About'
 import Projects from './components/Projects'
 import Contact from './components/Contact'
+import ResumeSwitcher from './components/Resume_Switcher'
 
 function MainLayout() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<MainLayout />} />
+        <Route path="/resume" element={<ResumeSwitcher />} />
       </Routes>
     </BrowserRouter>
   )

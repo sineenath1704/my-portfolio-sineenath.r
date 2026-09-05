@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Rochester&display=swap');
 @import "tailwindcss";
 
 @font-face {
@@ -13,6 +14,7 @@
   --font-rubik: "Rubik Doodle Shadow", Helvetica;
   --font-sekuya: "Sekuya", Helvetica;
   --font-seaweed: "Seaweed Script", Helvetica;
+  --font-rochester: "Rochester", cursive;
 
   --color-primary: #610200;
   --color-secondary: #191411;
@@ -31,4 +33,5 @@
 --text-sekuya3: clamp(13px, 4vw, 49px);
 --text-seaweed1: clamp(13px, 4vw, 49px);
 --text-seaweed2: clamp(5px, 3vw, 25px);
+--text-rochester: clamp(5px, 3vw, 25px);
 }
