@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -50,15 +51,17 @@ function Home() {
 
       {/* ฝั่งขวา: รายละเอียดสถานะและปุ่ม Action (ปรับสีตัวหนังสือให้เข้ากับพื้นหลังสว่าง) */}
       <div className="absolute bottom-45 right-20 md:right-16 z-30 flex flex-col items-end space-y-6">
-        <a
-          href="/resume"
+        <Link
+          to="/resume"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-4 cursor-pointer hover:opacity-70 transition-opacity"
         >
-          <span className="font-poppins text-h1 font-semibold text-white">Resume</span>
+          <span className="font-poppins text-h1 font-semibold text-white">
+            Resume
+          </span>
           <div className="h-6 w-[1.5px] bg-white/50" />
-        </a>
+        </Link>
 
         {/* <div className="flex items-center gap-4 cursor-pointer hover:opacity-70 transition-opacity">
           <span className="font-poppins text-h1 font-semibold text-white">Portfolio</span>
@@ -70,7 +73,7 @@ function Home() {
           className="px-7 py-3 border border-white/30 bg-white/10 backdrop-blur-sm rounded-full font-poppins text-h1 font-semibold text-white hover:bg-white hover:text-primary transition-all duration-300"
         >
           Let's work together
-        </button> 
+        </button>
       </div>
     </section>
   )
