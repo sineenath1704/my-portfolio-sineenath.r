@@ -1,11 +1,13 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { LanguageProvider } from './context/LanguageContext'
 import Landing from './components/Landing'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import About from './components/About'
 import Projects from './components/Projects'
 import Contact from './components/Contact'
+import BackToTop from './components/BackToTop'
 import ResumeSwitcher from './components/Resume_Switcher'
 import ProjectDetailTemplate from './components/ProjectForJSX/ProjectDetailTemplate'
 import ProjectDetailONEPUT from './components/ProjectForJSX/Intern/ProjectDetailONEPUT'
@@ -55,15 +57,17 @@ function MainLayout() {
       <About />
       <Projects />
       <Contact />
+      <BackToTop />
     </>
   )
 }
 
 function App() {
   return (
-    <BrowserRouter>
-      <ScrollToHash />
-      <Routes>
+    <LanguageProvider>
+      <BrowserRouter>
+        <ScrollToHash />
+        <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<MainLayout />} />
         <Route path="/projects" element={<Navigate to="/home#projects" replace />} />
@@ -86,8 +90,9 @@ function App() {
         <Route path="/ProjectDetailHerEvidence" element={<ProjectDetailHerEvidence />} />
         <Route path="/project-detail/sit-hello-world-hippo" element={<ProjectDetailSITHelloWorldHippo />} />
         <Route path="/ProjectDetailSITHelloWorldHippo" element={<ProjectDetailSITHelloWorldHippo />} />
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </LanguageProvider>
   )
 }
 

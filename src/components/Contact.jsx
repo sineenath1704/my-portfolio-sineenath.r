@@ -5,8 +5,86 @@ import {
   EnvelopeIcon,
 } from "@heroicons/react/24/solid";
 import emailjs from "@emailjs/browser";
+import { useLanguage } from '../context/LanguageContext';
+
+const TEXT = {
+  EN: {
+    badge: 'Contact',
+    heading: 'CONTACT ME',
+    subtitle: 'Feel free to reach out',
+    thankYouTitle: 'Thank You for Your Message',
+    thankYouDesc: 'Your message has been received successfully. I appreciate you taking the time to reach out and will respond as soon as possible.',
+    formTitle: 'Contact urgently',
+    formDesc: 'Please provide me with the details, and I will get back to you within 1 business day.',
+    hideBtn: 'Hide',
+    getInTouchBtn: 'Get In Touch',
+    contactSection: '01 / CONTACT DETAILS',
+    fullName: 'Full Name *',
+    fullNamePlaceholder: 'e.g. Niles / ABC Studio',
+    emailLabel: 'Email Address *',
+    positionLabel: 'Position / Role',
+    positionPlaceholder: 'e.g. HR Manager, Founder',
+    orgLabel: 'Organization',
+    projectSection: '02 / PROJECT DETAILS',
+    jobTitleLabel: 'Job Title / Project *',
+    jobTitlePlaceholder: 'e.g. UX/UI Designer',
+    timelineLabel: 'Timeline / Start Date',
+    timelinePlaceholder: 'e.g. July 2024 / 2 months',
+    budgetLabel: 'Budget / Salary (Optional)',
+    budgetPlaceholder: 'e.g. 20,000 Baht / Negotiable',
+    projectTypeLabel: 'Project Type *',
+    workFormatLabel: 'Work Format *',
+    jobDetailsLabel: 'Job Details / Expectations',
+    jobDetailsPlaceholder: 'Tell me about the project, required skills, or scope of work...',
+    interviewCheck: "I'd like to schedule an introductory call / interview first.",
+    preferredDateLabel: 'Preferred Date/Time',
+    preferredDatePlaceholder: 'e.g. Mon-Wed, 10:00 - 17:00',
+    preferredChannelLabel: 'Preferred Channel',
+    selectChannel: 'Select Channel',
+    privacyNote: 'Your information will only be used to contact you regarding this specific inquiry.',
+    submitBtn: 'Send Proposal',
+  },
+  TH: {
+    badge: 'Contact',
+    heading: 'CONTACT ME',
+    subtitle: 'Feel free to reach out',
+    thankYouTitle: 'ขอบคุณที่ติดต่อมา',
+    thankYouDesc: 'ได้รับข้อความของคุณเรียบร้อยแล้ว ขอบคุณที่สละเวลาติดต่อมา ฉันจะตอบกลับโดยเร็วที่สุด',
+    formTitle: 'ติดต่อด่วน',
+    formDesc: 'กรุณาแจ้งรายละเอียด ฉันจะตอบกลับภายใน 1 วันทำการ',
+    hideBtn: 'ซ่อน',
+    getInTouchBtn: 'ติดต่อฉัน',
+    contactSection: '01 / ข้อมูลการติดต่อ',
+    fullName: 'ชื่อ-นามสกุล *',
+    fullNamePlaceholder: 'เช่น สมศรี / ABC Studio',
+    emailLabel: 'อีเมล *',
+    positionLabel: 'ตำแหน่ง / บทบาท',
+    positionPlaceholder: 'เช่น ฝ่ายบุคคล, ผู้ก่อตั้ง',
+    orgLabel: 'องค์กร',
+    projectSection: '02 / รายละเอียดโปรเจกต์',
+    jobTitleLabel: 'ตำแหน่งงาน / โปรเจกต์ *',
+    jobTitlePlaceholder: 'เช่น UX/UI Designer',
+    timelineLabel: 'ระยะเวลา / วันเริ่มต้น',
+    timelinePlaceholder: 'เช่น ก.ค. 2567 / 2 เดือน',
+    budgetLabel: 'งบประมาณ / เงินเดือน (ถ้ามี)',
+    budgetPlaceholder: 'เช่น 20,000 บาท / ต่อรองได้',
+    projectTypeLabel: 'ประเภทงาน *',
+    workFormatLabel: 'รูปแบบการทำงาน *',
+    jobDetailsLabel: 'รายละเอียดงาน / ความคาดหวัง',
+    jobDetailsPlaceholder: 'เล่าเรื่องโปรเจกต์, ทักษะที่ต้องการ หรือขอบเขตของงาน...',
+    interviewCheck: 'ขอนัดสัมภาษณ์ก่อน',
+    preferredDateLabel: 'วันเวลาที่สะดวก',
+    preferredDatePlaceholder: 'เช่น จันทร์-พุธ, 10:00 - 17:00',
+    preferredChannelLabel: 'ช่องทางที่ต้องการ',
+    selectChannel: 'เลือกช่องทาง',
+    privacyNote: 'ข้อมูลของคุณจะใช้เพื่อติดต่อในเรื่องนี้เท่านั้น',
+    submitBtn: 'ส่งข้อความ',
+  },
+};
 
 function Contact() {
+  const { lang } = useLanguage();
+  const t = TEXT[lang] || TEXT.EN;
   const [form, setForm] = useState({
     fullName: '',
     email: '',
@@ -143,13 +221,13 @@ const handleSubmit = async (e) => {
         <div className="flex flex-col items-center text-center mb-14">
           <div className="border border-black bg-[#FFFBEA] px-4 py-1 rounded-full text-sm font-medium mb-8 flex items-center gap-2 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-black" />
-            Contact
+            {t.badge}
           </div>
           <h2 className="font-sekuya text-sekuya3 tracking-widest uppercase mb-1">
-            CONTACT ME
+            {t.heading}
           </h2>
           <span className="font-rochester text-rochester text-neutral-500">
-            Feel free to reach out
+            {t.subtitle}
           </span>
         </div>
 
@@ -205,11 +283,11 @@ const handleSubmit = async (e) => {
               </div>
 
               <h3 className="font-bold text-2xl text-black mb-2">
-                Thank You for Your Message
+                {t.thankYouTitle}
               </h3>
 
               <p className="text-neutral-600 leading-relaxed">
-                Your message has been received successfully. I appreciate you taking the time to reach out and will respond as soon as possible.
+                {t.thankYouDesc}
               </p>
             </div>
           ) : (
@@ -217,8 +295,8 @@ const handleSubmit = async (e) => {
               {/* Header + Collapse Button - อยู่นอก isFormExpanded */}
               <div className="flex items-start justify-between mb-8">
                 <div>
-                  <h3 className="font-bold text-xl text-black">Contact urgently</h3>
-                  <p className="text-sm text-neutral-600 mt-1">Please provide me with the details, and I will get back to you within 1 business day.</p>
+                  <h3 className="font-bold text-xl text-black">{t.formTitle}</h3>
+                  <p className="text-sm text-neutral-600 mt-1">{t.formDesc}</p>
                 </div>
                 <button
                   onClick={() => setIsFormExpanded(!isFormExpanded)}
@@ -226,7 +304,7 @@ const handleSubmit = async (e) => {
                   type="button"
                 >
                   <span className="text-sm font-semibold">
-                    {isFormExpanded ? 'Hide' : 'Get In Touch'}
+                    {isFormExpanded ? t.hideBtn : t.getInTouchBtn}
                   </span>
                 </button>
               </div>
@@ -236,15 +314,15 @@ const handleSubmit = async (e) => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Contact Details Section */}
                   <div className="mb-10">
-                    <h4 className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-6">01 / CONTACT DETAILS</h4>
+                    <h4 className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-6">{t.contactSection}</h4>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-xs font-semibold text-neutral-700 mb-2">Full Name *</label>
+                        <label className="block text-xs font-semibold text-neutral-700 mb-2">{t.fullName}</label>
                         <input
                           type="text"
                           name="fullName"
-                          placeholder="e.g. Niles / ABC Studio"
+                          placeholder={t.fullNamePlaceholder}
                           value={form.fullName}
                           onChange={handleChange}
                           required
@@ -252,7 +330,7 @@ const handleSubmit = async (e) => {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-neutral-700 mb-2">Email Address *</label>
+                        <label className="block text-xs font-semibold text-neutral-700 mb-2">{t.emailLabel}</label>
                         <input
                           type="email"
                           name="email"
@@ -264,18 +342,18 @@ const handleSubmit = async (e) => {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-neutral-700 mb-2">Position / Role</label>
+                        <label className="block text-xs font-semibold text-neutral-700 mb-2">{t.positionLabel}</label>
                         <input
                           type="text"
                           name="position"
-                          placeholder="e.g. HR Manager, Founder"
+                          placeholder={t.positionPlaceholder}
                           value={form.position}
                           onChange={handleChange}
                           className="w-full border border-neutral-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-900/20 bg-white"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-neutral-700 mb-2">Organization</label>
+                        <label className="block text-xs font-semibold text-neutral-700 mb-2">{t.orgLabel}</label>
                         <input
                           type="text"
                           name="organization"
@@ -290,15 +368,15 @@ const handleSubmit = async (e) => {
 
                   {/* Project Details Section */}
                   <div className="mb-10">
-                    <h4 className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-6">02 / PROJECT DETAILS</h4>
+                    <h4 className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-6">{t.projectSection}</h4>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                       <div>
-                        <label className="block text-xs font-semibold text-neutral-700 mb-2">Job Title / Project *</label>
+                        <label className="block text-xs font-semibold text-neutral-700 mb-2">{t.jobTitleLabel}</label>
                         <input
                           type="text"
                           name="jobTitle"
-                          placeholder="e.g. UX/UI Designer"
+                          placeholder={t.jobTitlePlaceholder}
                           value={form.jobTitle}
                           onChange={handleChange}
                           required
@@ -306,22 +384,22 @@ const handleSubmit = async (e) => {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-neutral-700 mb-2">Timeline / Start Date</label>
+                        <label className="block text-xs font-semibold text-neutral-700 mb-2">{t.timelineLabel}</label>
                         <input
                           type="text"
                           name="timeline"
-                          placeholder="e.g. July 2024 / 2 months"
+                          placeholder={t.timelinePlaceholder}
                           value={form.timeline}
                           onChange={handleChange}
                           className="w-full border border-neutral-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-900/20 bg-white"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-neutral-700 mb-2">Budget / Salary (Optional)</label>
+                        <label className="block text-xs font-semibold text-neutral-700 mb-2">{t.budgetLabel}</label>
                         <input
                           type="text"
                           name="budget"
-                          placeholder="e.g. 20,000 Baht / Negotiable"
+                          placeholder={t.budgetPlaceholder}
                           value={form.budget}
                           onChange={handleChange}
                           className="w-full border border-neutral-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-900/20 bg-white"
@@ -331,7 +409,7 @@ const handleSubmit = async (e) => {
 
                     {/* Project Type */}
                     <div className="mb-6">
-                      <label className="block text-xs font-semibold text-neutral-700 mb-3">Project Type *</label>
+                      <label className="block text-xs font-semibold text-neutral-700 mb-3">{t.projectTypeLabel}</label>
                       <div className="flex flex-wrap gap-3">
                         {projectTypes.map((type) => (
                           <button
@@ -351,7 +429,7 @@ const handleSubmit = async (e) => {
 
                     {/* Work Format */}
                     <div className="mb-6">
-                      <label className="block text-xs font-semibold text-neutral-700 mb-3">Work Format *</label>
+                      <label className="block text-xs font-semibold text-neutral-700 mb-3">{t.workFormatLabel}</label>
                       <div className="flex flex-wrap gap-3">
                         {workFormats.map((format) => (
                           <button
@@ -371,11 +449,11 @@ const handleSubmit = async (e) => {
 
                     {/* Job Details */}
                     <div className="mb-6">
-                      <label className="block text-xs font-semibold text-neutral-700 mb-2">Job Details / Expectations</label>
+                      <label className="block text-xs font-semibold text-neutral-700 mb-2">{t.jobDetailsLabel}</label>
                       <textarea
                         name="jobDetails"
                         rows={5}
-                        placeholder="Tell me about the project, required skills, or scope of work..."
+                        placeholder={t.jobDetailsPlaceholder}
                         value={form.jobDetails}
                         onChange={handleChange}
                         className="w-full border border-neutral-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-900/20 bg-white resize-none"
@@ -393,31 +471,31 @@ const handleSubmit = async (e) => {
                         onChange={handleCheckbox}
                         className="w-4 h-4 rounded border-neutral-300"
                       />
-                      <span className="text-sm text-neutral-700">I'd like to schedule an introductory call / interview first.</span>
+                      <span className="text-sm text-neutral-700">{t.interviewCheck}</span>
                     </label>
 
                     {form.interview && (
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                         <div>
-                          <label className="block text-xs font-semibold text-neutral-700 mb-2">Preferred Date/Time</label>
+                          <label className="block text-xs font-semibold text-neutral-700 mb-2">{t.preferredDateLabel}</label>
                           <input
                             type="text"
                             name="preferredDate"
-                            placeholder="e.g. Mon-Wed, 10:00 - 17:00"
+                            placeholder={t.preferredDatePlaceholder}
                             value={form.preferredDate}
                             onChange={handleChange}
                             className="w-full border border-neutral-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-900/20 bg-white"
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-semibold text-neutral-700 mb-2">Preferred Channel</label>
+                          <label className="block text-xs font-semibold text-neutral-700 mb-2">{t.preferredChannelLabel}</label>
                           <select
                             name="preferredChannel"
                             value={form.preferredChannel}
                             onChange={handleChange}
                             className="w-full border border-neutral-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-900/20 bg-white"
                           >
-                            <option value="">Select Channel</option>
+                            <option value="">{t.selectChannel}</option>
                             <option value="zoom">Zoom</option>
                             <option value="google-meet">Google Meet</option>
                             <option value="teams">Teams</option>
@@ -427,7 +505,7 @@ const handleSubmit = async (e) => {
                         </div>
                       </div>
                     )}
-                    <p className="text-xs text-neutral-400 mt-3">Your information will only be used to contact you regarding this specific inquiry.</p>
+                    <p className="text-xs text-neutral-400 mt-3">{t.privacyNote}</p>
                   </div>
 
                   {/* Submit Button */}
@@ -435,7 +513,7 @@ const handleSubmit = async (e) => {
                     type="submit"
                     className="w-full bg-neutral-900 text-white py-3 rounded-full text-sm font-semibold hover:bg-primary transition-colors duration-300 flex items-center justify-center gap-2"
                   >
-                    Send Proposal
+                    {t.submitBtn}
                   </button>
                 </form>
               )}
@@ -461,14 +539,6 @@ const handleSubmit = async (e) => {
               </a>
             ))}
           </div>
-
-          {/* Back to top button */}
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="w-12 h-12 rounded-full bg-neutral-900 text-white flex items-center justify-center hover:bg-primary transition-colors duration-300 mx-auto"
-          >
-            ↑
-          </button>
         </div>
 
       </div>

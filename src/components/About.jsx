@@ -1,7 +1,71 @@
 import React from 'react';
 import { Html5, Css, Javascript, React as ReactIcon, TailwindCss, Mysql, Figma, Canva } from '@thesvg/react';
+import { useLanguage } from '../context/LanguageContext';
+
+const TEXT = {
+  EN: {
+    badge: 'About Me',
+    heading: 'ABOUT ME',
+    subtitle: 'Get to know me',
+    profileTitle: 'Profile',
+    profileName: 'Name: Sineenath Rueangsri',
+    profileDesc:
+      "A third-year student in Digital Service Innovation (DSI) at King Mongkut's University of Technology Thonburi (KMUTT), with a passion for UX/UI and web design. Experienced in designing user flows, wireframes, and interactive prototypes through academic projects and hackathons. Possesses foundational frontend knowledge (HTML, CSS, JavaScript, React) to bridge the gap between design and development, ensuring seamless handoffs. Seeking a UX/UI Design internship to enhance my analytical and user-centered design skills, while contributing to the continuous growth of your organization.",
+    educationTitle: 'Education',
+    university: "King Mongkut's University of Technology Thonburi,",
+    faculty: 'School of Information Technology (SIT)',
+    degree: 'Bachelor of Arts in Digital Service Innovation',
+    year: '2024 – Present',
+    expectedGrad: '(Expected Graduation: 2028)',
+    gpa: 'GPA:',
+    gpaVal: '3.57 / 4.0',
+    coursework: 'Relevant Coursework:',
+    courseworkVal: 'Web Technology and Database, Digital Application Production, User Experience and Interface, Psychology for Digital Service, Digital Marketing, Market Research, Digital Project Management',
+    toolsTitle: 'Tools',
+    designTools: 'Design Tools',
+    frontendSkills: 'Frontend Skills (Foundational)',
+    additionalInfo: 'Additional Information',
+    uxSkillsTitle: 'UX/UI Design Skills',
+    uxSkills: ['User Research & Persona Creation', 'Wireframing & User Flow', 'Interactive Prototyping', 'Information Architecture', 'Responsive Web & Mobile Design'],
+    softSkillsTitle: 'Soft Skills',
+    softSkills: ['Cross-functional Collaboration', 'Effective Communication', 'Problem Solving & Critical Thinking', 'Adaptability & Creativity'],
+    languagesTitle: 'Languages',
+    languages: ['Thai (Native)', 'English (Basic Working Proficiency)'],
+  },
+  TH: {
+    badge: 'About Me',
+    heading: 'ABOUT ME',
+    subtitle: 'Get to know me',
+    profileTitle: 'โปรไฟล์',
+    profileName: 'ชื่อ: สินีนาท เรืองศรี',
+    profileDesc:
+      'นักศึกษาชั้นปีที่ 3 สาขานวัตกรรมบริการดิจิทัล (DSI) มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี (มจธ.) มีความสนใจในการออกแบบ UX/UI และ Web Design พร้อมประสบการณ์ในการออกแบบ User Flows, Wireframes และ Interactive Prototypes จากโครงงานการศึกษาและการเข้าร่วม Hackathons มีพื้นฐานด้าน Frontend ได้แก่ HTML, CSS, JavaScript และ React ซึ่งช่วยให้สามารถทำงานร่วมกับทีมนักพัฒนาและเข้าใจข้อจำกัดในการพัฒนาผลิตภัณฑ์ได้ดีขึ้น ปัจจุบันกำลังมองหาโอกาสในการฝึกงานด้าน UX/UI Design เพื่อพัฒนาทักษะด้านการวิเคราะห์ผู้ใช้งานและการออกแบบที่ยึดผู้ใช้เป็นศูนย์กลาง',
+    educationTitle: 'การศึกษา',
+    university: 'มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี,',
+    faculty: 'คณะเทคโนโลยีสารสนเทศ (SIT)',
+    degree: 'ปริญญาตรี สาขานวัตกรรมบริการดิจิทัล',
+    year: '2567 – ปัจจุบัน',
+    expectedGrad: '(คาดว่าจะสำเร็จการศึกษา: 2571)',
+    gpa: 'เกรดเฉลี่ย:',
+    gpaVal: '3.57 / 4.0',
+    coursework: 'วิชาที่เกี่ยวข้อง:',
+    courseworkVal: 'เทคโนโลยีเว็บและฐานข้อมูล, การผลิตแอปพลิเคชันดิจิทัล, UX/UI, จิตวิทยาเพื่อบริการดิจิทัล, ดิจิทัลมาร์เก็ตติ้ง, การวิจัยตลาด, การบริหารโครงการดิจิทัล',
+    toolsTitle: 'เครื่องมือ',
+    designTools: 'เครื่องมือออกแบบ',
+    frontendSkills: 'ทักษะ Frontend (พื้นฐาน)',
+    additionalInfo: 'ข้อมูลเพิ่มเติม',
+    uxSkillsTitle: 'ทักษะ UX/UI Design',
+    uxSkills: ['การวิจัยผู้ใช้และสร้าง Persona', 'Wireframing & User Flow', 'Interactive Prototyping', 'Information Architecture', 'การออกแบบ Web & Mobile แบบ Responsive'],
+    softSkillsTitle: 'ทักษะด้านบุคลิกภาพ',
+    softSkills: ['การทำงานข้ามทีม', 'การสื่อสารอย่างมีประสิทธิภาพ', 'การแก้ปัญหาและคิดเชิงวิพากษ์', 'ความยืดหยุ่นและความคิดสร้างสรรค์'],
+    languagesTitle: 'ภาษา',
+    languages: ['ภาษาไทย (ภาษาแม่)', 'ภาษาอังกฤษ (ระดับพื้นฐานในการทำงาน)'],
+  },
+};
 
 function About() {
+  const { lang } = useLanguage();
+  const t = TEXT[lang] || TEXT.EN;
   const iconMap = {
     html: <Html5 className="h-8 w-8" />,
     css: <Css className="h-8 w-8" />,
@@ -35,13 +99,13 @@ function About() {
         <div className="flex flex-col items-center justify-center text-center mb-16">
           <div className="border border-black bg-[#FFFBEA] px-4 py-1 rounded-full font-poppins text-sm font-medium mb-8 flex items-center gap-2 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-black" />
-            About Me
+            {t.badge}
           </div>
           <h2 className="font-sekuya text-4xl md:text-5xl font-bold tracking-wide uppercase mb-2">
-            ABOUT ME
+            {t.heading}
           </h2>
           <span className="font-rochester text-rochester text-neutral-500">
-            Get to know me
+            {t.subtitle}
           </span>
         </div>
 
@@ -54,61 +118,54 @@ function About() {
             {/* Profile */}
             <div>
               <div className="border-l-4 border-neutral-800 pl-4 mb-4">
-                <h3 className="font-bold text-lg text-black">Profile</h3>
+                <h3 className="font-bold text-lg text-black">{t.profileTitle}</h3>
               </div>
 
               <p className="font-bold text-sm mb-3 text-black">
-                Name: Sineenath Rueangsri
+                {t.profileName}
               </p>
 
               <p className="text-sm text-neutral-600 leading-relaxed">
-                A third-year student in Digital Service Innovation (DSI) at King Mongkut's University of
-                Technology Thonburi (KMUTT), with a passion for UX/UI and web design. Experienced in
-                designing user flows, wireframes, and interactive prototypes through academic projects and
-                hackathons. Possesses foundational frontend knowledge (HTML, CSS, JavaScript, React) to bridge
-                the gap between design and development, ensuring seamless handoffs. Seeking a UX/UI Design
-                internship to enhance my analytical and user-centered design skills, while contributing to the
-                continuous growth of your organization.
+                {t.profileDesc}
               </p>
             </div>
 
             {/* Education */}
             <div>
               <div className="border-l-4 border-neutral-800 pl-4 mb-4">
-                <h3 className="font-bold text-lg text-black">Education</h3>
+                <h3 className="font-bold text-lg text-black">{t.educationTitle}</h3>
               </div>
 
               <div className="space-y-3">
                 <div>
                   <p className="text-sm font-bold text-black">
-                    King Mongkut's University of Technology Thonburi,
+                    {t.university}
                   </p>
                   <p className="text-sm font-bold text-black">
-                    School of Information Technology (SIT)
+                    {t.faculty}
                   </p>
                   <p className="text-sm text-neutral-600">
-                    Bachelor of Arts in Digital Service Innovation
+                    {t.degree}
                   </p>
                 </div>
 
                 <div>
                   <p className="text-sm font-bold text-black">
-                    2024 – Present
+                    {t.year}
                   </p>
                   <p className="text-sm text-neutral-600">
-                    (Expected Graduation: 2028)
+                    {t.expectedGrad}
                   </p>
                 </div>
               </div>
 
               <ul className="mt-4 text-sm text-neutral-600 leading-relaxed space-y-1">
                 <li>
-                  <strong className="text-black">GPA:</strong> 3.57 / 4.0
+                  <strong className="text-black">{t.gpa}</strong> {t.gpaVal}
                 </li>
                 <li>
-                  <strong className="text-black">Relevant Coursework:</strong> Web Technology and Database,
-                  Digital Application Production, User Experience and Interface, Psychology for Digital Service,
-                  Digital Marketing, Market Research, Digital Project Management
+                  <strong className="text-black">{t.coursework}</strong>{' '}
+                  {t.courseworkVal}
                 </li>
               </ul>
             </div>
@@ -129,14 +186,14 @@ function About() {
         {/* ─── Row 2: Tools Section ─── */}
         <div>
           <div className="border-l-4 border-neutral-800 pl-4 mb-10">
-            <h3 className="font-bold text-lg text-black">Tools</h3>
+            <h3 className="font-bold text-lg text-black">{t.toolsTitle}</h3>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_3fr] gap-10">
 
             {/* Design Tools */}
             <div>
-              <h4 className="font-bold text-sm text-black mb-6">Design Tools</h4>
+              <h4 className="font-bold text-sm text-black mb-6">{t.designTools}</h4>
               <div className="flex flex-wrap gap-6">
                 {designTools.map((tool) => (
                   <div key={tool.label} className="flex flex-col items-center gap-3">
@@ -156,7 +213,7 @@ function About() {
             {/* Frontend Skills */}
             <div>
               <h4 className="font-bold text-sm text-black mb-6">
-                Frontend Skills (Foundational)
+                {t.frontendSkills}
               </h4>
 
               <div className="flex flex-wrap gap-6">
@@ -181,40 +238,32 @@ function About() {
         {/* ─── Row 3: Additional Information ─── */}
         <div className="mt-16">
           <div className="border-l-4 border-neutral-800 pl-4 mb-8">
-            <h3 className="font-bold text-lg text-black">Additional Information</h3>
+            <h3 className="font-bold text-lg text-black">{t.additionalInfo}</h3>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
 
             {/* UX/UI Design Skills */}
             <div>
-              <h4 className="font-bold text-sm text-black mb-3">UX/UI Design Skills</h4>
+              <h4 className="font-bold text-sm text-black mb-3">{t.uxSkillsTitle}</h4>
               <ul className="text-sm text-neutral-700 space-y-1.5">
-                <li>• User Research & Persona Creation</li>
-                <li>• Wireframing & User Flow</li>
-                <li>• Interactive Prototyping</li>
-                <li>• Information Architecture</li>
-                <li>• Responsive Web & Mobile Design</li>
+                {t.uxSkills.map((s, i) => <li key={i}>• {s}</li>)}
               </ul>
             </div>
 
             {/* Soft Skills */}
             <div>
-              <h4 className="font-bold text-sm text-black mb-3">Soft Skills</h4>
+              <h4 className="font-bold text-sm text-black mb-3">{t.softSkillsTitle}</h4>
               <ul className="text-sm text-neutral-700 space-y-1.5">
-                <li>• Cross-functional Collaboration</li>
-                <li>• Effective Communication</li>
-                <li>• Problem Solving & Critical Thinking</li>
-                <li>• Adaptability & Creativity</li>
+                {t.softSkills.map((s, i) => <li key={i}>• {s}</li>)}
               </ul>
             </div>
 
             {/* Languages */}
             <div>
-              <h4 className="font-bold text-sm text-black mb-3">Languages</h4>
+              <h4 className="font-bold text-sm text-black mb-3">{t.languagesTitle}</h4>
               <ul className="text-sm text-neutral-700 space-y-1.5">
-                <li>• Thai (Native)</li>
-                <li>• English (Basic Working Proficiency)</li>
+                {t.languages.map((l, i) => <li key={i}>• {l}</li>)}
               </ul>
             </div>
           </div>

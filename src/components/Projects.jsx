@@ -1,5 +1,114 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
+
+const PROJECT_DATA = [
+  {
+    id: 1,
+    title: 'ONEPUT TECHNOLOGY COMPANY LIMITED',
+    role:    { EN: 'Web Designer',          TH: 'Web Designer' },
+    period:  { EN: 'October 15, 2025 – Present', TH: '15 ต.ค. 2568 – ปัจจุบัน' },
+    subtitle:{ EN: 'Internship Experience',  TH: 'ประสบการณ์ฝึกงาน' },
+    description: {
+      EN: 'Designed and developed web interfaces for ONEPUT Technology Company Limited, focusing on user experience, visual design, and responsive web development.',
+      TH: 'ออกแบบและพัฒนา Web Interface สำหรับบริษัท ONEPUT Technology โดยเน้นประสบการณ์ผู้ใช้ การออกแบบ Visual และ Responsive Web',
+    },
+    category: 'internship',
+    tag: { EN: 'Web Designer', TH: 'Web Designer' },
+    pdfFile: '/pdf/oneput.pdf',
+    detailPath: '/project-detail/oneput',
+  },
+  {
+    id: 2,
+    title: 'Focus Room Project',
+    role:    { EN: 'UX/UI Designer',     TH: 'UX/UI Designer' },
+    period:  { EN: 'March – May 2026',   TH: 'มี.ค. – พ.ค. 2569' },
+    subtitle:{ EN: 'DSI109 – User Interface and User Experience', TH: 'DSI109 – User Interface and User Experience' },
+    description: {
+      EN: 'Designed User Flows and Site Maps for a web application aimed at solving classroom environmental issues. Developed a Design System including Typography and Color Psychology. Created Low- to Medium-Fidelity Wireframes progressing to complete Mockups.',
+      TH: 'ออกแบบ User Flows และ Site Maps สำหรับเว็บแอปฯ แก้ปัญหาสภาพแวดล้อมห้องเรียน พัฒนา Design System รวม Typography และ Color Psychology ทำ Wireframes ระดับ Low ถึง Medium จนถึง Mockup สมบูรณ์',
+    },
+    category: 'university',
+    tag: { EN: 'University Project', TH: 'โปรเจกต์มหาวิทยาลัย' },
+    pdfFile: '/pdf/focus-room.pdf',
+    detailPath: '/project-detail/focus-room',
+  },
+  {
+    id: 3,
+    title: 'CP Axtra Mile Hackathon',
+    role:    { EN: 'UX/UI Designer',  TH: 'UX/UI Designer' },
+    period:  { EN: 'Jun – Aug 2025',  TH: 'มิ.ย. – ส.ค. 2568' },
+    subtitle:{ EN: 'Smart Adviser feature on Makro Pro', TH: 'ฟีเจอร์ Smart Adviser บน Makro Pro' },
+    description: {
+      EN: 'Designed UI mockups for new features on Makro Pro including expiration date notifications, AI-powered recipe and food preservation recommendations, and personalized promotions.',
+      TH: 'ออกแบบ UI Mockups สำหรับฟีเจอร์ใหม่บน Makro Pro ได้แก่ การแจ้งเตือนวันหมดอายุ, คำแนะนำสูตรอาหารและวิธีเก็บรักษาด้วย AI และโปรโมชันส่วนบุคคล',
+    },
+    category: 'academic',
+    tag: { EN: 'Top 10 Finalist', TH: 'Top 10 Finalist' },
+    pdfFile: '/pdf/axtra-mile.pdf',
+    detailPath: '/project-detail/cp-axtra-mile',
+  },
+  {
+    id: 4,
+    title: 'HerEvidence Platform',
+    role:    { EN: 'UX/UI Designer & Developer', TH: 'UX/UI Designer & Developer' },
+    period:  { EN: 'May – Jun 2025',             TH: 'พ.ค. – มิ.ย. 2568' },
+    subtitle:{ EN: 'SIT Hackathon – Violence Survivor Evidence Platform', TH: 'SIT Hackathon – แพลตฟอร์มรวบรวมหลักฐานผู้รอดชีวิต' },
+    description: {
+      EN: 'Designed the complete user experience from User Flows and Wireframes to a High-Fidelity MVP using Figma. Developed Frontend and Backend using React and Node.js.',
+      TH: 'ออกแบบประสบการณ์ผู้ใช้ครบวงจรตั้งแต่ User Flows, Wireframes ไปจนถึง High-Fidelity MVP ด้วย Figma พัฒนา Frontend และ Backend ด้วย React และ Node.js',
+    },
+    category: 'academic',
+    tag: { EN: 'Honorable Mention', TH: 'รางวัล Honorable Mention' },
+    pdfFile: '/pdf/herevidence.pdf',
+    detailPath: '/project-detail/herevidence',
+  },
+  {
+    id: 5,
+    title: 'SIT Hello World Hippo',
+    role:    { EN: 'UX/UI Designer', TH: 'UX/UI Designer' },
+    period:  { EN: 'Jan – Feb 2025', TH: 'ม.ค. – ก.พ. 2568' },
+    subtitle:{ EN: 'SIT Room Booking System Redesign', TH: 'ออกแบบใหม่ระบบจองห้อง SIT' },
+    description: {
+      EN: 'Redesigned the complete user experience and interface from Wireframes to a High-Fidelity MVP Prototype based on the team database structure (ERD).',
+      TH: 'ออกแบบ UX/UI ใหม่ทั้งหมดตั้งแต่ Wireframes จนถึง High-Fidelity MVP Prototype โดยอิงจากโครงสร้างฐานข้อมูล (ERD) ของทีม',
+    },
+    category: 'academic',
+    tag: { EN: 'Hackathon', TH: 'Hackathon' },
+    pdfFile: '/pdf/sit-hippo.pdf',
+    detailPath: '/project-detail/sit-hello-world-hippo',
+  },
+];
+
+const TABS_CONFIG = [
+  { key: 'all',        labelEN: 'Show All',             labelTH: 'ทั้งหมด' },
+  { key: 'internship', labelEN: 'Internship Experience', labelTH: 'ประสบการณ์ฝึกงาน' },
+  { key: 'university', labelEN: 'University Project',    labelTH: 'โปรเจกต์มหาวิทยาลัย' },
+  { key: 'academic',   labelEN: 'Academic competition',  labelTH: 'การแข่งขันวิชาการ' },
+];
+
+const SECTION_TEXT = {
+  EN: {
+    badge: 'Project',
+    heading: 'PORTFOLIO SHOWCASE',
+    subtitle: 'Journey',
+    jobPosition: 'Job position:',
+    workStartDate: 'Work start date:',
+    detailBtn: 'Detail Project',
+    slideBtn: 'Project Slide',
+    emptyState: 'No projects available in this category.',
+  },
+  TH: {
+    badge: 'Project',
+    heading: 'PORTFOLIO SHOWCASE',
+    subtitle: 'Journey',
+    jobPosition: 'ตำแหน่ง:',
+    workStartDate: 'ช่วงเวลา:',
+    detailBtn: 'รายละเอียด',
+    slideBtn: 'สไลด์โปรเจกต์',
+    emptyState: 'ยังไม่มีโปรเจกต์ในหมวดนี้',
+  },
+};
 
 const projects = [
   {
@@ -73,27 +182,23 @@ const projects = [
   },
 ];
 
-const tabs = [
-  {
-    key: 'all',
-    label: 'Show All',
-  },
-  {
-    key: 'internship',
-    label: 'Internship Experience',
-  },
-  {
-    key: 'university',
-    label: 'University Project',
-  },
-  {
-    key: 'academic',
-    label: 'Academic competition',
-  },
-];
+// Keep a flat array for category-matching (same keys used in URL params)
+const tabs = TABS_CONFIG;
 
 function Projects() {
   const location = useLocation();
+  const { lang } = useLanguage();
+  const t = SECTION_TEXT[lang] || SECTION_TEXT.EN;
+
+  // Derive localized project list
+  const projects = PROJECT_DATA.map((p) => ({
+    ...p,
+    role: p.role[lang] || p.role.EN,
+    period: p.period[lang] || p.period.EN,
+    subtitle: p.subtitle[lang] || p.subtitle.EN,
+    description: p.description[lang] || p.description.EN,
+    tag: p.tag[lang] || p.tag.EN,
+  }));
 
   const getInitialTab = () => {
     if (typeof window !== 'undefined') {
@@ -102,8 +207,8 @@ function Projects() {
       if (cat) {
         const lower = cat.toLowerCase();
         if (lower === 'all' || lower.includes('show')) return 'all';
-        const matched = tabs.find(
-          (t) => t.key.toLowerCase() === lower || t.label.toLowerCase() === lower
+        const matched = TABS_CONFIG.find(
+          (tb) => tb.key.toLowerCase() === lower || tb.labelEN.toLowerCase() === lower
         );
         if (matched) return matched.key;
         if (lower.includes('hack') || lower.includes('acad')) return 'academic';
@@ -125,8 +230,8 @@ function Projects() {
         setActiveTab('all');
         return;
       }
-      const matchedTab = tabs.find(
-        (t) => t.key.toLowerCase() === paramLower || t.label.toLowerCase() === paramLower
+      const matchedTab = TABS_CONFIG.find(
+        (tb) => tb.key.toLowerCase() === paramLower || tb.labelEN.toLowerCase() === paramLower
       );
       if (matchedTab) {
         setActiveTab(matchedTab.key);
@@ -171,7 +276,7 @@ function Projects() {
             "
           >
             <span className="h-2 w-2 rounded-full bg-black" />
-            Project
+            {t.badge}
           </div>
 
           {/* Main Heading */}
@@ -199,7 +304,7 @@ function Projects() {
               text-[#171313]
             "
           >
-            Journey
+            {t.subtitle}
           </span>
         </div>
 
@@ -251,8 +356,9 @@ function Projects() {
                 md:gap-4
               "
             >
-              {tabs.map((tab) => {
+              {TABS_CONFIG.map((tab) => {
                 const isActive = activeTab === tab.key;
+                const tabLabel = lang === 'TH' ? tab.labelTH : tab.labelEN;
 
                 return (
                   <button
@@ -288,7 +394,7 @@ function Projects() {
                       md:py-3.5
                     `}
                   >
-                    {tab.label}
+                    {tabLabel}
                   </button>
                 );
               })}
@@ -356,8 +462,8 @@ function Projects() {
                         text-white
                       "
                     >
-                      <span className="font-bold">Job position:</span>{' '}
-                      {project.role}
+                      <span className="font-bold">{t.jobPosition}</span>{' '}
+                       {project.role}
                     </p>
 
                     {/* Period */}
@@ -371,7 +477,7 @@ function Projects() {
                       "
                     >
                       <span className="font-bold">
-                        Work start date:
+                        {t.workStartDate}
                       </span>{' '}
                       {project.period}
                     </p>
@@ -413,7 +519,7 @@ function Projects() {
                           hover:scale-105
                         "
                       >
-                        Detail Project
+                        {t.detailBtn}
                       </Link>
 
                       {project.pdfFile && (
@@ -439,7 +545,7 @@ function Projects() {
                             hover:text-[#8f3030]
                           "
                         >
-                          Project Slide
+                          {t.slideBtn}
                         </a>
                       )}
                     </div>
@@ -467,7 +573,7 @@ function Projects() {
                   text-white/70
                 "
               >
-                No projects available in this category.
+                {t.emptyState}
               </div>
             )}
 

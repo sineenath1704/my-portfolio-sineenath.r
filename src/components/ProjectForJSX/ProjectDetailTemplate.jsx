@@ -1,5 +1,28 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+import BackToTop from "../BackToTop";
+import { useLanguage } from "../../context/LanguageContext";
+
+const TEMPLATE_TEXT = {
+  EN: {
+    home: 'Home',
+    projectDuration: 'Project duration:',
+    overview: 'Project overview',
+    myRole: 'My Role',
+    keyLearnings: 'Key learnings',
+    tools: 'Tools',
+    ctaBtn: 'Contact to work together',
+  },
+  TH: {
+    home: 'หน้าแรก',
+    projectDuration: 'ระยะเวลา:',
+    overview: 'ภาพรวมโปรเจกต์',
+    myRole: 'บทบาทของฉัน',
+    keyLearnings: 'สิ่งที่ได้เรียนรู้',
+    tools: 'เครื่องมือ',
+    ctaBtn: 'ติดต่อเพื่อร่วมงานกัน',
+  },
+};
 
 // ─── Social Media Icons (Pixel-perfect inline SVGs matching the design) ───
 const GmailIcon = () => (
@@ -497,6 +520,9 @@ export default function ProjectDetailTemplate({
     return 'internship';
   })();
 
+  const { lang } = useLanguage();
+  const tl = TEMPLATE_TEXT[lang] || TEMPLATE_TEXT.EN;
+
   const handleScrollToContact = () => {
     if (onContactClick) {
       onContactClick();
@@ -519,7 +545,7 @@ export default function ProjectDetailTemplate({
             to="/home"
             className="text-neutral-600 hover:text-black transition-colors"
           >
-            Home
+            {tl.home}
           </Link>
           <span className="text-neutral-400 font-normal">›</span>
           <Link
@@ -566,7 +592,7 @@ export default function ProjectDetailTemplate({
           {/* Project Meta Details */}
           <div className="text-xs sm:text-sm text-neutral-700 font-poppins leading-relaxed space-y-0.5">
             <p>{subjectName}</p>
-            <p>Project duration: {duration}</p>
+            <p>{tl.projectDuration} {duration}</p>
           </div>
         </div>
 
@@ -580,13 +606,13 @@ export default function ProjectDetailTemplate({
 
         {/* ─── Content Sections (Left Black Border Bar) ─── */}
         <div className="max-w-3xl space-y-6">
-          <Section title="Project overview">
+          <Section title={tl.overview}>
             <p className="text-xs sm:text-sm text-neutral-800 font-poppins leading-relaxed whitespace-pre-line">
               {overview}
             </p>
           </Section>
 
-          <Section title="My Role">
+          <Section title={tl.myRole}>
             <p className="font-bold text-xs sm:text-sm text-neutral-900 font-poppins mb-1">
               {myRoleTitle}
             </p>
@@ -595,13 +621,13 @@ export default function ProjectDetailTemplate({
             </p>
           </Section>
 
-          <Section title="Key learnings">
+          <Section title={tl.keyLearnings}>
             <p className="text-xs sm:text-sm text-neutral-800 font-poppins leading-relaxed whitespace-pre-line">
               {keyLearnings}
             </p>
           </Section>
 
-          <Section title="Tools">
+          <Section title={tl.tools}>
             <ul className="list-disc list-inside text-xs sm:text-sm text-neutral-800 font-poppins space-y-1">
               {Array.isArray(tools) ? (
                 tools.map((tool, i) => <li key={i}>{tool}</li>)
@@ -619,7 +645,7 @@ export default function ProjectDetailTemplate({
             onClick={handleScrollToContact}
             className="px-8 py-3 rounded-full bg-[#FDEFC9] text-[#610200] font-poppins font-bold text-sm border border-[#E3C985] shadow-xs hover:bg-[#fae7b0] active:scale-98 transition-all cursor-pointer"
           >
-            Contact to work together
+            {tl.ctaBtn}
           </button>
 
           {/* 5 Social Media Icons matching the screenshot layout */}
@@ -628,6 +654,8 @@ export default function ProjectDetailTemplate({
           </div>
         </div>
       </div>
+
+      <BackToTop />
     </div>
   );
 }
