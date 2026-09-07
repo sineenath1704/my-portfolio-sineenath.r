@@ -433,7 +433,7 @@ const handleSubmit = async (e) => {
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    className="w-full bg-neutral-900 text-white py-3 rounded-full text-sm font-semibold hover:bg-black transition-colors duration-300 flex items-center justify-center gap-2"
+                    className="w-full bg-neutral-900 text-white py-3 rounded-full text-sm font-semibold hover:bg-primary transition-colors duration-300 flex items-center justify-center gap-2"
                   >
                     Send Proposal
                   </button>
@@ -465,7 +465,7 @@ const handleSubmit = async (e) => {
           {/* Back to top button */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="w-12 h-12 rounded-full bg-neutral-900 text-white flex items-center justify-center hover:bg-black transition-colors duration-300 mx-auto"
+            className="w-12 h-12 rounded-full bg-neutral-900 text-white flex items-center justify-center hover:bg-primary transition-colors duration-300 mx-auto"
           >
             ↑
           </button>

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const projects = [
   {
@@ -12,6 +13,7 @@ const projects = [
     description:
       'Designed and developed web interfaces for ONEPUT Technology Company Limited, focusing on user experience, visual design, and responsive web development.',
     pdfFile: '/pdf/oneput.pdf',
+    detailPath: '/project-detail/oneput',
   },
 
   {
@@ -25,6 +27,7 @@ const projects = [
     description:
       'Designed User Flows and Site Maps for a web application aimed at solving classroom environmental issues. Developed a Design System including Typography and Color Psychology. Created Low- to Medium-Fidelity Wireframes progressing to complete Mockups.',
     pdfFile: '/pdf/focus-room.pdf',
+    detailPath: '/project-detail/focus-room',
   },
 
   {
@@ -38,6 +41,7 @@ const projects = [
     description:
       'Designed UI mockups for new features on Makro Pro including expiration date notifications, AI-powered recipe and food preservation recommendations, and personalized promotions.',
     pdfFile: '/pdf/axtra-mile.pdf',
+    detailPath: '/project-detail/cp-axtra-mile',
   },
 
   {
@@ -51,6 +55,7 @@ const projects = [
     description:
       'Designed the complete user experience from User Flows and Wireframes to a High-Fidelity MVP using Figma. Developed Frontend and Backend using React and Node.js.',
     pdfFile: '/pdf/herevidence.pdf',
+    detailPath: '/project-detail/herevidence',
   },
 
   {
@@ -64,23 +69,15 @@ const projects = [
     description:
       'Redesigned the complete user experience and interface from Wireframes to a High-Fidelity MVP Prototype based on the team database structure (ERD).',
     pdfFile: '/pdf/sit-hippo.pdf',
-  },
-
-  {
-    id: 6,
-    title: 'Thailand Post Case Study',
-    role: 'Digital Transformation Analysis',
-    period: 'August 2026',
-    category: 'case-study',
-    tag: 'Case Study',
-    subtitle: 'Digital Transformation & Strategic Recommendation',
-    description:
-      'Analyzed disruption, digital transformation maturity, and strategic opportunities for Thailand Post. Proposed digital initiatives to improve competitiveness and customer experience.',
-    pdfFile: '/pdf/thailand-post.pdf',
+    detailPath: '/project-detail/sit-hello-world-hippo',
   },
 ];
 
 const tabs = [
+  {
+    key: 'all',
+    label: 'Show All',
+  },
   {
     key: 'internship',
     label: 'Internship Experience',
@@ -93,18 +90,60 @@ const tabs = [
     key: 'academic',
     label: 'Academic competition',
   },
-  {
-    key: 'case-study',
-    label: 'Case Study',
-  },
 ];
 
 function Projects() {
-  const [activeTab, setActiveTab] = useState('internship');
+  const location = useLocation();
 
-  const filteredProjects = projects.filter(
-    (project) => project.category === activeTab
-  );
+  const getInitialTab = () => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get('category');
+      if (cat) {
+        const lower = cat.toLowerCase();
+        if (lower === 'all' || lower.includes('show')) return 'all';
+        const matched = tabs.find(
+          (t) => t.key.toLowerCase() === lower || t.label.toLowerCase() === lower
+        );
+        if (matched) return matched.key;
+        if (lower.includes('hack') || lower.includes('acad')) return 'academic';
+        if (lower.includes('univ')) return 'university';
+        if (lower.includes('intern')) return 'internship';
+      }
+    }
+    return 'all';
+  };
+
+  const [activeTab, setActiveTab] = useState(getInitialTab);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const categoryParam = params.get('category') || location.state?.category;
+    if (categoryParam) {
+      const paramLower = categoryParam.toLowerCase();
+      if (paramLower === 'all' || paramLower.includes('show')) {
+        setActiveTab('all');
+        return;
+      }
+      const matchedTab = tabs.find(
+        (t) => t.key.toLowerCase() === paramLower || t.label.toLowerCase() === paramLower
+      );
+      if (matchedTab) {
+        setActiveTab(matchedTab.key);
+      } else if (paramLower.includes('hack') || paramLower.includes('acad')) {
+        setActiveTab('academic');
+      } else if (paramLower.includes('univ')) {
+        setActiveTab('university');
+      } else if (paramLower.includes('intern')) {
+        setActiveTab('internship');
+      }
+    }
+  }, [location.search, location.state]);
+
+  const filteredProjects =
+    activeTab === 'all'
+      ? projects
+      : projects.filter((project) => project.category === activeTab);
 
   return (
     <section
@@ -351,48 +390,59 @@ function Projects() {
                     "
                   >
 
-                    {/* Category */}
-                    <span
-                      className="
-                        rounded-md
-                        border
-                        border-white/80
-                        px-4
-                        py-2
-                        text-[11px]
-                        font-medium
-                        text-white
-                      "
-                    >
-                      {project.tag}
-                    </span>
+                    {/* Buttons: Detail Project & Project Slide */}
+                    <div className="flex flex-wrap items-center gap-2">
+                      <Link
+                        to={project.detailPath}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="
+                          rounded-full
+                          border
+                          border-white/30
+                          bg-white
+                          px-5
+                          py-2.5
+                          text-xs
+                          font-semibold
+                          text-[#8f3030]
+                          shadow-[0_3px_8px_rgba(0,0,0,0.25)]
+                          transition-all
+                          duration-300
+                          hover:bg-[#fff5cf]
+                          hover:scale-105
+                        "
+                      >
+                        Detail Project
+                      </Link>
 
-
-                    {/* Detail Button */}
-                    <a
-                      href={project.pdfFile}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="
-                        rounded-full
-                        border
-                        border-white/20
-                        bg-white/20
-                        px-7
-                        py-2.5
-                        text-xs
-                        font-semibold
-                        text-white
-                        shadow-[0_3px_8px_rgba(0,0,0,0.25)]
-                        backdrop-blur-sm
-                        transition-all
-                        duration-300
-                        hover:bg-white
-                        hover:text-[#8f3030]
-                      "
-                    >
-                      Detail
-                    </a>
+                      {project.pdfFile && (
+                        <a
+                          href={project.pdfFile}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="
+                            rounded-full
+                            border
+                            border-white/20
+                            bg-white/20
+                            px-5
+                            py-2.5
+                            text-xs
+                            font-semibold
+                            text-white
+                            shadow-[0_3px_8px_rgba(0,0,0,0.25)]
+                            backdrop-blur-sm
+                            transition-all
+                            duration-300
+                            hover:bg-white
+                            hover:text-[#8f3030]
+                          "
+                        >
+                          Project Slide
+                        </a>
+                      )}
+                    </div>
 
                   </div>
 
