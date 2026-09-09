@@ -37,7 +37,7 @@ export default function ProjectDetailFocusRoom() {
       "Canva",
       "Figma Presentation Mode"
     ],
-    figmaEmbedUrl: "",
+    figmaEmbedUrl: "https://embed.figma.com/design/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=0-1&embed-host=share",
     designImages: []
   };
 

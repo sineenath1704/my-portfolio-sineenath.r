@@ -38,7 +38,7 @@ export default function ProjectDetailHerEvidence() {
       "Discord",
       "Canva"
     ],
-    figmaEmbedUrl: "",
+    figmaEmbedUrl: "https://embed.figma.com/design/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=4-6427&embed-host=share",
     designImages: []
   };
 

@@ -35,7 +35,7 @@ export default function ProjectDetailCPAxtraMile() {
       "Canva",
       "Figma Presentation Mode"
     ],
-    figmaEmbedUrl: "",
+    figmaEmbedUrl: "https://embed.figma.com/design/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=1-8213&embed-host=share",
     designImages: []
   };
 

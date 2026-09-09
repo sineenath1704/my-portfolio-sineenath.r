@@ -30,7 +30,7 @@ export default function ProjectDetailSITHelloWorldHippo() {
       "Discord",
       "Canva"
     ],
-    figmaEmbedUrl: "",
+    figmaEmbedUrl: "https://embed.figma.com/design/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=4-6629&embed-host=share",
     designImages: []
   };
 
