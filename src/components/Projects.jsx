@@ -3,21 +3,21 @@ import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 
 const PROJECT_DATA = [
-  {
-    id: 1,
-    title: 'ONEPUT TECHNOLOGY COMPANY LIMITED',
-    role:    { EN: 'Web Designer',          TH: 'Web Designer' },
-    period:  { EN: 'October 15, 2025 – Present', TH: '15 ต.ค. 2568 – ปัจจุบัน' },
-    subtitle:{ EN: 'Internship Experience',  TH: 'ประสบการณ์ฝึกงาน' },
-    description: {
-      EN: 'Designed and developed web interfaces for ONEPUT Technology Company Limited, focusing on user experience, visual design, and responsive web development.',
-      TH: 'ออกแบบและพัฒนา Web Interface สำหรับบริษัท ONEPUT Technology โดยเน้นประสบการณ์ผู้ใช้ การออกแบบ Visual และ Responsive Web',
-    },
-    category: 'internship',
-    tag: { EN: 'Web Designer', TH: 'Web Designer' },
-    pdfFile: '/pdf/oneput.pdf',
-    detailPath: '/project-detail/oneput',
-  },
+  // {
+  //   id: 1,
+  //   title: 'ONEPUT TECHNOLOGY COMPANY LIMITED',
+  //   role:    { EN: 'Web Designer',          TH: 'Web Designer' },
+  //   period:  { EN: 'October 15, 2025 – Present', TH: '15 ต.ค. 2568 – ปัจจุบัน' },
+  //   subtitle:{ EN: 'Internship Experience',  TH: 'ประสบการณ์ฝึกงาน' },
+  //   description: {
+  //     EN: 'Designed and developed web interfaces for ONEPUT Technology Company Limited, focusing on user experience, visual design, and responsive web development.',
+  //     TH: 'ออกแบบและพัฒนา Web Interface สำหรับบริษัท ONEPUT Technology โดยเน้นประสบการณ์ผู้ใช้ การออกแบบ Visual และ Responsive Web',
+  //   },
+  //   category: 'internship',
+  //   tag: { EN: 'Web Designer', TH: 'Web Designer' },
+  //   pdfFile: '/pdf/oneput.pdf',
+  //   detailPath: '/project-detail/oneput',
+  // },
   {
     id: 2,
     title: 'Focus Room Project',

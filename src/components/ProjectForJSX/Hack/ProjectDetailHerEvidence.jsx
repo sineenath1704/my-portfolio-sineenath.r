@@ -1,10 +1,11 @@
 import React from 'react';
 import ProjectDetailTemplate from '../ProjectDetailTemplate';
+import { useLanguage } from '../../../context/LanguageContext';
 
-export default function ProjectDetailHerEvidence() {
-  const projectData = {
+const DATA = {
+  EN: {
     projectName: "HerEvidence Platform",
-    categoryName: "Hackathon",
+    categoryName: "Academic competition",
     categoryKey: "academic",
     parentCategory: "Project",
     role: "UX/UI Designer & Developer",
@@ -40,7 +41,45 @@ export default function ProjectDetailHerEvidence() {
     ],
     figmaEmbedUrl: "https://embed.figma.com/design/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=4-6427&embed-host=share",
     designImages: []
-  };
+  },
+  TH: {
+    projectName: "HerEvidence Platform",
+    categoryName: "การแข่งขันวิชาการ",
+    categoryKey: "academic",
+    parentCategory: "โปรเจกต์",
+    role: "UX/UI Designer & Developer",
+    subjectName: "SIT Hackathon (Honorable Mention) — ขับเคลื่อนเป้าหมาย SDG Goal 5: Gender Equality",
+    duration: "พฤษภาคม – มิถุนายน 2568",
+    overview:
+      "แพลตฟอร์มบันทึกและจัดเก็บหลักฐานดิจิทัลเพื่อผู้หญิงที่เผชิญความรุนแรงในครอบครัวและการคุกคามทางเพศ เพื่อเป็น 'พื้นที่ปลอดภัยสำหรับการรวบรวมหลักฐาน' ที่ปลอดภัย เป็นส่วนตัว เป็นระบบ และมีความน่าเชื่อถือพร้อมนำไปใช้ในกระบวนการยุติธรรม ภายใต้สโลแกน 'วันไหนที่คุณต้องการหลักฐาน ให้จำไว้ว่ามีเรา'\n\n" +
+      "ปัญหาที่พบและการวิจัยทางจริยธรรม (Ethical UX Research):\n" +
+      "• เนื่องจากเป็นประเด็นอ่อนไหวสูง จึงทำวิจัยผ่าน Mock Users & Mock Scenarios โดยจำลอง Persona 'Maria' (อายุ 29 ปี)\n" +
+      "• Pain Points: ผู้เสียหายไม่รู้ว่าควรเก็บหลักฐานอะไร, ข้อมูลกระจัดกระจายหลายแอป, ขาดลำดับเวลา (Timeline) ชัดเจน, กังวลเรื่อง Data Privacy กลัวคนอื่นแอบเข้าถึงหรือข้อมูลรั่วไหล\n\n" +
+      "ฟีเจอร์หลัก (Core Solutions):\n" +
+      "1. Secure Evidence Vault & Folder Organization: จัดเก็บหลักฐานได้หลายรูปแบบ (รูปภาพ, ข้อความแชท, ไฟล์เสียง, บันทึก) พร้อมระบบถังขยะกู้คืน (Retrieve)\n" +
+      "2. Timeline & Data Integrity System: จัดเรียงลำดับเหตุการณ์ตาม Timeline พร้อมนโยบายจำกัดเวลาแก้ไขภายใน 2 วันเพื่อรักษาความน่าเชื่อถือทางกฎหมาย\n" +
+      "3. AI Her Guide: ผู้ช่วยอัจฉริยะแนะนำการเก็บหลักฐานและแนวทางการปฏิบัติตัวอย่างถูกต้องตามขั้นตอน\n" +
+      "4. Legal Information Hub: รวบรวมข้อมูลกฎหมาย สิทธิผู้เสียหาย และเบอร์ติดต่อหน่วยงานช่วยเหลือ",
+    myRoleTitle: "UX/UI Designer & Developer",
+    myRoleDescription:
+      "• UX/UI Design & Prototyping: ออกแบบหน้าจอทั้งหมดใน Figma (Home, Evidence Upload, Folder, Retrieve, AI Chatbot, Legal Hub)\n" +
+      "• Frontend & Backend Development: ร่วมพัฒนาระบบจริงโดยใช้ React และ Node.js เพื่อสร้างเป็น High-Fidelity MVP และมีการใช้ AI เข้ามาช่วยในการเขียนโค้ดให้เสร็จทันกำหนดการการแข่งขัน",
+    keyLearnings:
+      "1. การออกแบบสำหรับประเด็นที่ละเอียดอ่อน (Designing for Sensitive & High-stakes Contexts): เรียนรู้การทำวิจัยอย่างมีจริยธรรมโดยไม่ซ้ำเติมสภาพจิตใจของผู้ใช้ และคำนึงถึงความปลอดภัยของข้อมูลสูงสุด (Data Privacy & Security)\n" +
+      "2. Legal-Tech & Data Integrity: เข้าใจหลักการจัดเก็บหลักฐานดิจิทัลตามกฎหมาย เช่น การบันทึก Timestamp และการจำกัดสิทธิ์แก้ไขข้อมูลเพื่อรักษาความบริสุทธิ์ของพยานหลักฐาน\n" +
+      "3. การทำงานแบบ Full-stack ภายใต้กรอบเวลา Hackathon: ได้ฝึกการเป็นทั้ง Designer และ Developer พัฒนาโค้ดทั้งหน้าบ้านและหลังบ้านอย่างรวดเร็วเพื่อให้ได้ระบบที่ใช้งานได้จริง",
+    tools: [
+      "Design & Prototyping: Figma (UI Design, Wireframes, Interactive Prototype, ER Diagram)",
+      "Development: React, Node.js, JavaScript, Tailwind CSS, Postman",
+      "Collaboration: Discord, Canva"
+    ],
+    figmaEmbedUrl: "https://embed.figma.com/design/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=4-6427&embed-host=share",
+    designImages: []
+  }
+};
 
-  return <ProjectDetailTemplate {...projectData} />;
+export default function ProjectDetailHerEvidence() {
+  const { lang } = useLanguage();
+  const currentData = DATA[lang] || DATA.EN;
+  return <ProjectDetailTemplate {...currentData} />;
 }

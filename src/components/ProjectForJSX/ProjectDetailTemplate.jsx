@@ -6,21 +6,35 @@ import { useLanguage } from "../../context/LanguageContext";
 const TEMPLATE_TEXT = {
   EN: {
     home: 'Home',
+    parentCategory: 'Project',
     projectDuration: 'Project duration:',
     overview: 'Project overview',
     myRole: 'My Role',
     keyLearnings: 'Key learnings',
     tools: 'Tools',
     ctaBtn: 'Contact to work together',
+    categories: {
+      internship: 'Internship Experience',
+      university: 'University Project',
+      academic: 'Academic competition',
+      'case-study': 'Case Study',
+    },
   },
   TH: {
     home: 'หน้าแรก',
+    parentCategory: 'โปรเจกต์',
     projectDuration: 'ระยะเวลา:',
     overview: 'ภาพรวมโปรเจกต์',
     myRole: 'บทบาทของฉัน',
     keyLearnings: 'สิ่งที่ได้เรียนรู้',
     tools: 'เครื่องมือ',
     ctaBtn: 'ติดต่อเพื่อร่วมงานกัน',
+    categories: {
+      internship: 'ประสบการณ์ฝึกงาน',
+      university: 'โปรเจกต์มหาวิทยาลัย',
+      academic: 'การแข่งขันวิชาการ',
+      'case-study': 'กรณีศึกษา',
+    },
   },
 };
 
@@ -520,8 +534,11 @@ export default function ProjectDetailTemplate({
     return 'internship';
   })();
 
-  const { lang } = useLanguage();
+  const { lang, setLang } = useLanguage();
   const tl = TEMPLATE_TEXT[lang] || TEMPLATE_TEXT.EN;
+
+  const displayParentCategory = tl.parentCategory || parentCategory;
+  const displayCategoryName = tl.categories?.[targetCategoryKey] || categoryName;
 
   const handleScrollToContact = () => {
     if (onContactClick) {
@@ -540,40 +557,72 @@ export default function ProjectDetailTemplate({
     <div className="min-h-screen bg-white text-neutral-900 font-poppins antialiased">
       {/* ─── Breadcrumb Navigation ─── */}
       <div className="border-b border-neutral-200 px-6 sm:px-12 py-4">
-        <nav className="flex items-center gap-2 text-xs sm:text-sm font-poppins max-w-6xl mx-auto">
-          <Link
-            to="/home"
-            className="text-neutral-600 hover:text-black transition-colors"
+        <div className="flex items-center justify-between max-w-6xl mx-auto gap-4">
+          <nav className="flex items-center gap-2 text-xs sm:text-sm font-poppins flex-wrap">
+            <Link
+              to="/home"
+              className="text-neutral-600 hover:text-black transition-colors"
+            >
+              {tl.home}
+            </Link>
+            <span className="text-neutral-400 font-normal">›</span>
+            <Link
+              to="/home?category=all#projects"
+              state={{ category: "all" }}
+              onClick={() => {
+                const elem = document.getElementById("projects");
+                if (elem) elem.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="text-neutral-600 hover:text-black transition-colors"
+            >
+              {displayParentCategory}
+            </Link>
+            <span className="text-neutral-400 font-normal">›</span>
+            <Link
+              to={`/home?category=${targetCategoryKey}#projects`}
+              state={{ category: targetCategoryKey }}
+              onClick={() => {
+                const elem = document.getElementById("projects");
+                if (elem) elem.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="text-neutral-600 hover:text-black cursor-pointer transition-colors"
+            >
+              {displayCategoryName}
+            </Link>
+            <span className="text-neutral-400 font-normal">›</span>
+            <span className="font-bold text-neutral-900">{projectName}</span>
+          </nav>
+
+          {/* Language Switcher */}
+          <div 
+            className="flex items-center bg-neutral-100 p-0.5 rounded-full border border-neutral-300 select-none flex-shrink-0"
+            role="group"
+            aria-label="Language switcher"
           >
-            {tl.home}
-          </Link>
-          <span className="text-neutral-400 font-normal">›</span>
-          <Link
-            to="/home?category=all#projects"
-            state={{ category: "all" }}
-            onClick={() => {
-              const elem = document.getElementById("projects");
-              if (elem) elem.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="text-neutral-600 hover:text-black transition-colors"
-          >
-            {parentCategory}
-          </Link>
-          <span className="text-neutral-400 font-normal">›</span>
-          <Link
-            to={`/home?category=${targetCategoryKey}#projects`}
-            state={{ category: targetCategoryKey }}
-            onClick={() => {
-              const elem = document.getElementById("projects");
-              if (elem) elem.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="text-neutral-600 hover:text-black cursor-pointer transition-colors"
-          >
-            {categoryName}
-          </Link>
-          <span className="text-neutral-400 font-normal">›</span>
-          <span className="font-bold text-neutral-900">{projectName}</span>
-        </nav>
+            <button
+              type="button"
+              onClick={() => setLang && setLang('TH')}
+              className={`px-2.5 py-0.5 text-[11px] sm:text-xs font-semibold rounded-full transition-all duration-300 cursor-pointer ${
+                lang === 'TH'
+                  ? 'bg-secondary text-white shadow-xs'
+                  : 'text-neutral-600 hover:text-black hover:bg-neutral-200/60'
+              }`}
+            >
+              TH
+            </button>
+            <button
+              type="button"
+              onClick={() => setLang && setLang('EN')}
+              className={`px-2.5 py-0.5 text-[11px] sm:text-xs font-semibold rounded-full transition-all duration-300 cursor-pointer ${
+                lang === 'EN'
+                  ? 'bg-secondary text-white shadow-xs'
+                  : 'text-neutral-600 hover:text-black hover:bg-neutral-200/60'
+              }`}
+            >
+              EN
+            </button>
+          </div>
+        </div>
       </div>
 
       <div className="max-w-6xl mx-auto px-6 sm:px-12 py-8 sm:py-12">

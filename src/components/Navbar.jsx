@@ -102,7 +102,7 @@ function Navbar() {
             onClick={() => setLang('TH')}
             className={`px-2 sm:px-2.5 py-0.5 text-[11px] sm:text-xs font-semibold rounded-full transition-all duration-300 cursor-pointer ${
               lang === 'TH'
-                ? 'bg-primary text-white shadow-xs'
+                ? 'bg-secondary text-white shadow-xs'
                 : 'text-neutral-600 hover:text-black hover:bg-neutral-200/60'
             }`}
           >
@@ -113,7 +113,7 @@ function Navbar() {
             onClick={() => setLang('EN')}
             className={`px-2 sm:px-2.5 py-0.5 text-[11px] sm:text-xs font-semibold rounded-full transition-all duration-300 cursor-pointer ${
               lang === 'EN'
-                ? 'bg-primary text-white shadow-xs'
+                ? 'bg-secondary text-white shadow-xs'
                 : 'text-neutral-600 hover:text-black hover:bg-neutral-200/60'
             }`}
           >

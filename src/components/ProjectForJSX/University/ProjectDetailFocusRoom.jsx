@@ -1,8 +1,9 @@
 import React from 'react';
 import ProjectDetailTemplate from '../ProjectDetailTemplate';
+import { useLanguage } from '../../../context/LanguageContext';
 
-export default function ProjectDetailFocusRoom() {
-  const projectData = {
+const DATA = {
+  EN: {
     projectName: "Focus Room Project",
     categoryName: "University Project",
     categoryKey: "university",
@@ -39,7 +40,48 @@ export default function ProjectDetailFocusRoom() {
     ],
     figmaEmbedUrl: "https://embed.figma.com/design/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=0-1&embed-host=share",
     designImages: []
-  };
+  },
+  TH: {
+    projectName: "Focus Room Project",
+    categoryName: "โปรเจกต์มหาวิทยาลัย",
+    categoryKey: "university",
+    parentCategory: "โปรเจกต์",
+    role: "UX/UI Designer",
+    subjectName: "DSI109: User Interface and User Experience (School of Information Technology - SIT, KMUTT)",
+    duration: "มีนาคม – พฤษภาคม 2569",
+    overview:
+      "เว็บแอปพลิเคชันเพื่อแก้ปัญหาสภาพแวดล้อมและประสบการณ์การเรียนรู้ในห้องเรียนมหาวิทยาลัย (กรณีศึกษา: อาคารเรียนรวม CB2 มจธ.) ภายใต้คำถามวิจัยหลัก 'สภาพแวดล้อมในห้องเรียนส่งผลต่อคุณภาพการเรียนหรือไม่?' เพื่อสร้างโซลูชันที่ช่วยให้นักศึกษานั่งเรียนได้อย่างสบายใจและเข้าใจเนื้อหาได้อย่างเต็มประสิทธิภาพ ไม่ว่าจะนั่งตำแหน่งใดในห้องเรียน\n\n" +
+      "ปัญหาที่พบจากการวิจัย (Key Insights):\n" +
+      "• กลุ่มนั่งหลังห้อง: เลือกนั่งหลังห้องเพราะต้องการ 'Safe Zone' หลีกเลี่ยงความกดดันและการถูกจับจ้องจากอาจารย์ แต่มีอุปสรรคมองสไลด์ไม่ชัดและหลุดโฟกัสง่าย\n" +
+      "• กลุ่มนั่งหน้าห้อง: นั่งหน้าห้องเพื่อให้เห็นสไลด์ชัดเจน แต่ต้องเผชิญความกดดันและมักหงุดหงิดกับเสียงคุยรบกวนของกลุ่มหลังห้อง\n\n" +
+      "ฟีเจอร์หลักของ Focus Room:\n" +
+      "1. AI Chatbot สรุปเนื้อหาและสร้างแบบทดสอบ: สามารถ Prompt ให้ AI สรุปบทเรียนจากไฟล์ PDF และสร้างแบบทดสอบ (Generate Quiz) วัดความเข้าใจ\n" +
+      "2. ระบบแจ้งเตือนเพื่อนที่คุยเสียงดังแบบไม่ระบุตัวตน (Anonymous Noise Reporting): ส่งข้อความเตือนไปยังหน้าจอเพื่อนโดยไม่เปิดเผยตัวตน พร้อมระบบสอบถามติดตามผลหลัง 5 นาที\n" +
+      "3. ระบบส่งคำถามและ Feedback ให้อาจารย์แบบไม่ระบุตัวตน (Anonymous Feedback): ช่วยให้นักศึกษากล้าถามข้อสงสัยในคาบเรียนแบบ Real-time โดยไม่รู้สึกประหม่า\n\n" +
+      "ผลการทดสอบ Usability Testing:\n" +
+      "• Task เปิดไฟล์เรียน: Success Rate 100% (เวลาเฉลี่ย 58.3 วินาที)\n" +
+      "• Task เตือนเพื่อนเสียงดัง: Success Rate 100% (เวลาเฉลี่ย 24.2 วินาที)\n" +
+      "• Task Generate Quiz: Success Rate 80% (เวลาเฉลี่ย 41 วินาที)",
+    myRoleTitle: "UX/UI Designer",
+    myRoleDescription:
+      "• User Journey Mapping: พัฒนา User Journey Map 5 ขั้นตอน (Arrival -> Information Check -> Navigation -> Settling In -> In-Class Experience)\n" +
+      "• Information Architecture & Wireframing: จัดทำ Site Map และ User Flows สำหรับฟีเจอร์ AI Chatbot, ระบบเตือนเพื่อน, และระบบ Feedback จากนั้นออกแบบ Low- to Medium-Fidelity Wireframes\n" +
+      "• UI Design & Design System Creation: ออกแบบ High-Fidelity Prototype ใน Figma พร้อมจัดทำ Design System (Typography, Color Psychology, Semantic Tokens, Components)",
+    keyLearnings:
+      "1. กระบวนการ User-Centered Design (UCD) อย่างเต็มรูปแบบ: ได้ลงมือทำตั้งแต่ขั้น Empathize, Define, Ideate, Prototype ไปจนถึง Testing เข้าใจว่าการตัดสินใจออกแบบต้องมี User Insight และ Data รองรับเสมอ\n" +
+      "2. การแก้ปัญหาเชิงจิตวิทยาและสังคมด้วยงานออกแบบ (Social Experience Design): เรียนรู้วิธีคลี่คลายความขัดแย้งในห้องเรียนด้วยการใช้ระบบ Anonymous Interaction และการเลือกใช้สีเหลืองสำหรับการเตือนแทนสีแดง เพื่อลดความรู้สึกคุกคาม\n" +
+      "3. การตีความข้อมูล Usability Metrics: เข้าใจว่า Success Rate 100% ไม่ได้แปลว่า UI ใช้งานง่ายเสมอไป หากมี Misclick Rate สูง แสดงว่า Visual Affordance ยังไม่ชัดเจนพอ ซึ่งต้องนำข้อมูลมาปรับปรุงแบบ Iterative Design",
+    tools: [
+      "UX/UI Design & Prototyping: Figma (Wireframing, High-Fidelity Prototype, Design System)",
+      "Presentation: Canva, Figma Presentation Mode"
+    ],
+    figmaEmbedUrl: "https://embed.figma.com/design/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=0-1&embed-host=share",
+    designImages: []
+  }
+};
 
-  return <ProjectDetailTemplate {...projectData} />;
+export default function ProjectDetailFocusRoom() {
+  const { lang } = useLanguage();
+  const currentData = DATA[lang] || DATA.EN;
+  return <ProjectDetailTemplate {...currentData} />;
 }

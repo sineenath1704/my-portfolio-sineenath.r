@@ -1,4 +1,0 @@
-npm run build
-git add .
-git commit -m "Update ProjectDetail Workspace+(translate all not yet)"
-git push

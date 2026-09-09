@@ -43,6 +43,18 @@ const TEXT = {
     selectChannel: 'Select Channel',
     privacyNote: 'Your information will only be used to contact you regarding this specific inquiry.',
     submitBtn: 'Send Proposal',
+    location: 'Bangkok, Thailand',
+    projectTypes: [
+      { key: 'Full-time', label: 'Full-time' },
+      { key: 'Freelance', label: 'Freelance' },
+      { key: 'Internship', label: 'Internship' },
+      { key: 'Collaboration / Hackathon', label: 'Collaboration / Hackathon' },
+    ],
+    workFormats: [
+      { key: 'Online (remote Work)', label: 'Online (Remote Work)' },
+      { key: 'Onsite', label: 'Onsite' },
+      { key: 'Hybrid', label: 'Hybrid' },
+    ],
   },
   TH: {
     badge: 'Contact',
@@ -79,6 +91,18 @@ const TEXT = {
     selectChannel: 'เลือกช่องทาง',
     privacyNote: 'ข้อมูลของคุณจะใช้เพื่อติดต่อในเรื่องนี้เท่านั้น',
     submitBtn: 'ส่งข้อความ',
+    location: 'กรุงเทพมหานคร, ประเทศไทย',
+    projectTypes: [
+      { key: 'Full-time', label: 'งานประจำ (Full-time)' },
+      { key: 'Freelance', label: 'ฟรีแลนซ์ (Freelance)' },
+      { key: 'Internship', label: 'ฝึกงาน (Internship)' },
+      { key: 'Collaboration / Hackathon', label: 'ร่วมโปรเจกต์ / Hackathon' },
+    ],
+    workFormats: [
+      { key: 'Online (remote Work)', label: 'ออนไลน์ (Remote Work)' },
+      { key: 'Onsite', label: 'ออนไซต์ (Onsite)' },
+      { key: 'Hybrid', label: 'ไฮบริด (Hybrid)' },
+    ],
   },
 };
 
@@ -157,8 +181,8 @@ const handleSubmit = async (e) => {
 
   const [isFormExpanded, setIsFormExpanded] = useState(true);
 
-  const projectTypes = ['Full-time', 'Freelance', 'Internship', 'Collaboration / Hackathon'];
-  const workFormats = ['Online (remote Work)', 'Onsite', 'Hybrid'];
+  const projectTypes = t.projectTypes || [];
+  const workFormats = t.workFormats || [];
 
   const socialLinks = [
     {
@@ -236,7 +260,7 @@ const handleSubmit = async (e) => {
           {/* Location */}
           <div className="flex items-center gap-2">
             <MapPinIcon className="w-5 h-5 text-black" />
-            <span>Bangkok, Thailand</span>
+            <span>{t.location}</span>
           </div>
 
           {/* Phone */}
@@ -411,17 +435,17 @@ const handleSubmit = async (e) => {
                     <div className="mb-6">
                       <label className="block text-xs font-semibold text-neutral-700 mb-3">{t.projectTypeLabel}</label>
                       <div className="flex flex-wrap gap-3">
-                        {projectTypes.map((type) => (
+                        {projectTypes.map((item) => (
                           <button
-                            key={type}
+                            key={item.key}
                             type="button"
-                            onClick={() => handleToggle('projectType', type)}
-                            className={`px-4 py-2 rounded-lg text-sm font-medium border transition-all ${form.projectType.includes(type)
+                            onClick={() => handleToggle('projectType', item.key)}
+                            className={`px-4 py-2 rounded-lg text-sm font-medium border transition-all ${form.projectType.includes(item.key)
                               ? 'border-black bg-black text-white'
                               : 'border-neutral-300 bg-white text-neutral-700 hover:border-neutral-400'
                               }`}
                           >
-                            {type.startsWith('Full-time')} {type.startsWith('Freelance')} {type.startsWith('Internship')} {type.startsWith('Collaboration')} {type}
+                            {item.label}
                           </button>
                         ))}
                       </div>
@@ -431,17 +455,17 @@ const handleSubmit = async (e) => {
                     <div className="mb-6">
                       <label className="block text-xs font-semibold text-neutral-700 mb-3">{t.workFormatLabel}</label>
                       <div className="flex flex-wrap gap-3">
-                        {workFormats.map((format) => (
+                        {workFormats.map((item) => (
                           <button
-                            key={format}
+                            key={item.key}
                             type="button"
-                            onClick={() => handleToggle('workFormat', format)}
-                            className={`px-4 py-2 rounded-lg text-sm font-medium border transition-all ${form.workFormat.includes(format)
+                            onClick={() => handleToggle('workFormat', item.key)}
+                            className={`px-4 py-2 rounded-lg text-sm font-medium border transition-all ${form.workFormat.includes(item.key)
                               ? 'border-black bg-black text-white'
                               : 'border-neutral-300 bg-white text-neutral-700 hover:border-neutral-400'
                               }`}
                           >
-                            {format.startsWith('Online')} {format.startsWith('Onsite')} {format.startsWith('Hybrid')} {format}
+                            {item.label}
                           </button>
                         ))}
                       </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 /* ------------------------------------------------------------------ */
 /* Toolbar (always visible, independent of language)                   */
@@ -390,7 +391,14 @@ function ensureFontStylesheet() {
 /* ------------------------------------------------------------------ */
 
 export default function ResumeSwitcher() {
-  const [lang, setLang] = useState('en');
+  const { lang: globalLang, setLang: setGlobalLang } = useLanguage();
+  const lang = (globalLang || 'en').toLowerCase();
+  const setLang = (nextVal) => {
+    const next = typeof nextVal === 'function' ? nextVal(lang) : nextVal;
+    if (setGlobalLang) {
+      setGlobalLang(next.toUpperCase());
+    }
+  };
   const containerRef = useRef(null);
 
   useEffect(() => {

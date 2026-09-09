@@ -1,8 +1,9 @@
 import React from 'react';
 import ProjectDetailTemplate from '../ProjectDetailTemplate';
+import { useLanguage } from '../../../context/LanguageContext';
 
-export default function ProjectDetailONEPUT() {
-  const projectData = {
+const DATA = {
+  EN: {
     projectName: "ONEPUT TECHNOLOGY COMPANY LIMITED",
     categoryName: "Internship Experience",
     categoryKey: "internship",
@@ -32,7 +33,41 @@ export default function ProjectDetailONEPUT() {
     ],
     figmaEmbedUrl: "",
     designImages: []
-  };
+  },
+  TH: {
+    projectName: "ONEPUT TECHNOLOGY COMPANY LIMITED",
+    categoryName: "ประสบการณ์ฝึกงาน",
+    categoryKey: "internship",
+    parentCategory: "โปรเจกต์",
+    role: "Web Designer",
+    subjectName: "Internship Experience — Web Designer (บริษัท วันพุท เทคโนโลยี จำกัด)",
+    duration: "15 ตุลาคม 2568 – ปัจจุบัน",
+    overview: 
+      "ออกแบบและพัฒนาส่วนติดต่อประสานงานผู้ใช้ (Web User Interface) ให้กับบริษัท วันพุท เทคโนโลยี จำกัด (ONEPUT Technology Company Limited) มุ่งเน้นการสร้างประสบการณ์ผู้ใช้ที่มีคุณภาพ (User Experience), การจัดวางลำดับองค์ประกอบทางสายตา (Visual Hierarchy)\n\n" +
+      "ขอบเขตและหน้าที่สำคัญ:\n" +
+      "• วิเคราะห์ความต้องการของธุรกิจ (Business Requirements) และแปลงออกมาเป็นโครงสร้างหน้าเว็บที่ตอบโจทย์ผู้ใช้งาน\n" +
+      "• ออกแบบ User Flows, Wireframes และ Mockups สำหรับฟีเจอร์และหน้าเว็บใหม่ ๆ\n" +
+      "• นำหลักการ Human-Centered Design มาปรับปรุงความสะดวกในการนำทาง (Navigation Flow) และความสามารถในการใช้งาน (Usability)\n" +
+      "• ประสานงานและส่งต่องานออกแบบ (Design Handoff) ให้กับทีมนักพัฒนาเพื่อให้งานพัฒนาออกมาตรงตามที่ออกแบบไว้มากที่สุด",
+    myRoleTitle: "Web Designer",
+    myRoleDescription:
+      "• User Interface Design: ออกแบบหน้าเว็บด้วย Figma โดยยึดมาตรฐานความสวยงาม ทันสมัย และความง่ายในการใช้งาน\n" +
+      "• Design System & Component Library: จัดทำและควบคุมมาตรฐานระบบดีไซน์ (Typography, Color Palette, Button States, Grid Layouts)\n" +
+      "• Collaboration & Implementation: ทำงานร่วมกับนักพัฒนาในการตรวจสอบความถูกต้องของหน้าเว็บจริง",
+    keyLearnings:
+      "1. การทำงานในสภาพแวดล้อมธุรกิจจริง (Real-world Corporate Environment): ได้เรียนรู้การทำงานตามเป้าหมายขององค์กร เข้าใจความต้องการของธุรกิจ และจัดการข้อจำกัดทางเทคนิคในการพัฒนาเว็บ\n" +
+      "2. การวางระบบ Design System เพื่อการพัฒนาที่ยั่งยืน (Scalable Design System): เข้าใจความสำคัญของการสร้าง Components ที่สามารถนำกลับมาใช้ใหม่ได้ (Reusable Components) ซึ่งช่วยประหยัดเวลาของทั้งทีมดีไซน์และทีมพัฒนา\n" +
+      "3. การสื่อสารและส่งต่องาน (Cross-functional Handoff): พัฒนาทักษะการส่งมอบงานสเปกดีไซน์ให้นักพัฒนาอย่างละเอียด ชัดเจน และตรงไปตรงมา ลดข้อผิดพลาดในการนำโค้ดไปประกอบจริง",
+    tools: [
+      "Design & Prototyping: Figma, Canva"
+    ],
+    figmaEmbedUrl: "",
+    designImages: []
+  }
+};
 
-  return <ProjectDetailTemplate {...projectData} />;
+export default function ProjectDetailONEPUT() {
+  const { lang } = useLanguage();
+  const currentData = DATA[lang] || DATA.EN;
+  return <ProjectDetailTemplate {...currentData} />;
 }
