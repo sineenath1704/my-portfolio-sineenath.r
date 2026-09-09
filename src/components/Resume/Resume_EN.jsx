@@ -299,7 +299,7 @@ export default function Resume() {
         <header className="header">
           <h1>SINEENATH RUEANGSRI</h1>
           <div className="contact-info">
-            Bangkok, Thailand | (+66) 61-408-3711 | sineenathrueangsri@gmail.com
+            Bangkok, Thailand | (+66) 61-408-3711 | sineenath.work@gmail.com
           </div>
         </header>
 

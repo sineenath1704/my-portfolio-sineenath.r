@@ -187,7 +187,7 @@ const handleSubmit = async (e) => {
   const socialLinks = [
     {
       label: 'Gmail',
-      href: "https://mail.google.com/mail/?view=cm&fs=1&to=sineenathrueangsri@gmail.com",
+      href: "https://mail.google.com/mail/?view=cm&fs=1&to=sineenath.work@gmail.com",
       color: '#EA4335',
       icon: (
         <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -274,12 +274,12 @@ const handleSubmit = async (e) => {
             <EnvelopeIcon className="w-5 h-5 text-black" />
 
             <a
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=sineenathrueangsri@gmail.com"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=sineenath.work@gmail.com"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-primary transition-colors"
             >
-              sineenathrueangsri@gmail.com
+              sineenath.work@gmail.com
             </a>
           </div>
         </div>
