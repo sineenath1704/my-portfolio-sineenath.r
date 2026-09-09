@@ -353,24 +353,24 @@ export default function Resume() {
         <section className="section">
           <h2 className="section-title">การศึกษา</h2>
           <div className="item-header">
-            <div className="item-title">King Mongkut's University of Technology Thonburi,</div>
-            <div className="item-date">2024 – Present</div>
+            <div className="item-title">มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี</div>
+            <div className="item-date">2567 – ปัจจุบัน</div>
           </div>
           <div className="item-subtitle-row">
             <div className="item-subtitle" style={{ fontWeight: 600, fontStyle: 'normal' }}>
-              School of Information Technology (SIT)
+              คณะเทคโนโลยีสารสนเทศ (SIT)
             </div>
-            <div className="item-subdate">(Expected Graduation: 2028)</div>
+            <div className="item-subdate">(คาดว่าจะสำเร็จการศึกษา: 2571)</div>
           </div>
           <div className="item-subtitle" style={{ fontWeight: 600, fontStyle: 'normal', marginBottom: 5 }}>
-            Bachelor of Arts in Digital Service Innovation
+            ศิลปศาสตรบัณฑิต สาขาวิชานวัตกรรมบริการดิจิทัล
           </div>
           <ul className="bullet-list">
             <li>
-              <strong>GPA:</strong> 3.57 / 4.0
+              <strong>เกรดเฉลี่ย:</strong> 3.57 / 4.0
             </li>
             <li>
-              <strong>Relevant Coursework:</strong> Web Technology and Database, Digital Application Production, User
+              <strong>วิชาที่เกี่ยวข้อง:</strong> Web Technology and Database, Digital Application Production, User
               Experience and Interface, Psychology for Digital Service, Digital Marketing, Market Research, Digital
               Project Management
             </li>
@@ -384,7 +384,7 @@ export default function Resume() {
           <div className="project-block">
             <div className="item-header">
               <div className="item-title">UX/UI Designer | Focus Room Project</div>
-              <div className="item-date">March – May 2026</div>
+              <div className="item-date">มีนาคม – พฤษภาคม 2569</div>
             </div>
             <div className="item-subtitle">University Project - DSI109 (User Interface and User Experience)</div>
             <ul className="bullet-list">
@@ -400,7 +400,7 @@ export default function Resume() {
           <div className="project-block">
             <div className="item-header">
               <div className="item-title">UX/UI Designer | CP Axtra Mile Hackathon (Top 10 Finalist)</div>
-              <div className="item-date">Jun – Aug 2025</div>
+              <div className="item-date">มิถุนายน – สิงหาคม 2568</div>
             </div>
             <div className="item-subtitle">Hackathon - Smart Adviser (Makro Pro)</div>
             <ul className="bullet-list">
@@ -415,7 +415,7 @@ export default function Resume() {
           <div className="project-block">
             <div className="item-header">
               <div className="item-title">UX/UI Designer &amp; Developer | SIT Hackathon (Honorable Mention)</div>
-              <div className="item-date">May – Jun 2025</div>
+              <div className="item-date">พฤษภาคม – มิถุนายน 2568</div>
             </div>
             <div className="item-subtitle">Hackathon - HerEvidence platform</div>
             <ul className="bullet-list">
@@ -430,7 +430,7 @@ export default function Resume() {
           <div className="project-block">
             <div className="item-header">
               <div className="item-title">UX/UI Designer | SIT Hello World Hippo</div>
-              <div className="item-date">Jan – Feb 2025</div>
+              <div className="item-date">มกราคม – กุมภาพันธ์ 2568</div>
             </div>
             <div className="item-subtitle">Hackathon - SIT Room Booking Redesign</div>
             <ul className="bullet-list">
