@@ -32,6 +32,7 @@ const DATA = {
       "Canva"
     ],
     figmaEmbedUrl: "https://embed.figma.com/design/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=4-6629&embed-host=share",
+    figmaProtoUrl: "https://www.figma.com/proto/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=4-6629&t=dlI3YJVtV4Qouj3i-1",
     designImages: []
   },
   TH: {
@@ -62,6 +63,7 @@ const DATA = {
       "Collaboration: Discord, Canva"
     ],
     figmaEmbedUrl: "https://embed.figma.com/design/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=4-6629&embed-host=share",
+    figmaProtoUrl: "https://www.figma.com/proto/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=4-6629&t=dlI3YJVtV4Qouj3i-1",
     designImages: []
   }
 };

@@ -132,15 +132,56 @@ const Section = ({ title, children }) => (
   </div>
 );
 
-// ─── Interactive Figma Design Workspace (Pan, Zoom, Drag, Reset, Fullscreen) ───
-const FigmaDesignWorkspace = ({ figmaEmbedUrl = "", designImages = [] }) => {
+// Helper to convert any Figma URL (proto or design) to embed format
+const toFigmaEmbedUrl = (url) => {
+  if (!url) return "";
+  if (url.includes("embed.figma.com")) return url;
+  try {
+    const parsed = new URL(url);
+    if (parsed.hostname.includes("figma.com")) {
+      if (!parsed.searchParams.has("embed-host")) {
+        parsed.searchParams.set("embed-host", "share");
+      }
+      if (parsed.pathname.startsWith("/proto/") || parsed.pathname.startsWith("/design/")) {
+        return `https://embed.figma.com${parsed.pathname}?${parsed.searchParams.toString()}`;
+      }
+      return `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}`;
+    }
+  } catch {
+    return url;
+  }
+  return url;
+};
+
+// ─── Interactive Figma Design Workspace (Pan, Zoom, Drag, Reset, Fullscreen, Prototype) ───
+const FigmaDesignWorkspace = ({
+  figmaEmbedUrl = "",
+  figmaProtoUrl = "",
+  designImages = []
+}) => {
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [activeTab, setActiveTab] = useState(figmaEmbedUrl ? "embed" : "canvas");
+
+  // Default to prototype if available, then design/embed, otherwise canvas
+  const [activeTab, setActiveTab] = useState(() => {
+    if (figmaProtoUrl) return "prototype";
+    if (figmaEmbedUrl) return "design";
+    return "canvas";
+  });
   const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (figmaProtoUrl && activeTab !== "design") {
+      setActiveTab("prototype");
+    } else if (!figmaProtoUrl && figmaEmbedUrl && activeTab === "prototype") {
+      setActiveTab("design");
+    }
+  }, [figmaProtoUrl, figmaEmbedUrl]);
+
+  const isInteractiveIframe = activeTab === "prototype" || activeTab === "design" || activeTab === "embed";
 
   // Zoom helpers
   const handleZoomIn = () => setScale((s) => Math.min(3, +(s + 0.2).toFixed(1)));
@@ -152,7 +193,7 @@ const FigmaDesignWorkspace = ({ figmaEmbedUrl = "", designImages = [] }) => {
 
   // Mouse drag handlers
   const handleMouseDown = (e) => {
-    if (activeTab === "embed") return;
+    if (isInteractiveIframe) return;
     // Only drag on left click
     if (e.button !== 0) return;
     setIsDragging(true);
@@ -160,7 +201,7 @@ const FigmaDesignWorkspace = ({ figmaEmbedUrl = "", designImages = [] }) => {
   };
 
   const handleMouseMove = (e) => {
-    if (!isDragging || activeTab === "embed") return;
+    if (!isDragging || isInteractiveIframe) return;
     setPosition({
       x: e.clientX - dragStart.x,
       y: e.clientY - dragStart.y,
@@ -171,7 +212,7 @@ const FigmaDesignWorkspace = ({ figmaEmbedUrl = "", designImages = [] }) => {
 
   // Wheel zoom
   const handleWheel = (e) => {
-    if (activeTab === "embed") return;
+    if (isInteractiveIframe) return;
     e.preventDefault();
     const delta = e.deltaY > 0 ? -0.1 : 0.1;
     setScale((s) => Math.min(3, Math.max(0.4, +(s + delta).toFixed(2))));
@@ -179,14 +220,14 @@ const FigmaDesignWorkspace = ({ figmaEmbedUrl = "", designImages = [] }) => {
 
   // Touch drag for mobile
   const handleTouchStart = (e) => {
-    if (activeTab === "embed" || e.touches.length !== 1) return;
+    if (isInteractiveIframe || e.touches.length !== 1) return;
     setIsDragging(true);
     const touch = e.touches[0];
     setDragStart({ x: touch.clientX - position.x, y: touch.clientY - position.y });
   };
 
   const handleTouchMove = (e) => {
-    if (!isDragging || activeTab === "embed" || e.touches.length !== 1) return;
+    if (!isDragging || isInteractiveIframe || e.touches.length !== 1) return;
     const touch = e.touches[0];
     setPosition({
       x: touch.clientX - dragStart.x,
@@ -223,82 +264,111 @@ const FigmaDesignWorkspace = ({ figmaEmbedUrl = "", designImages = [] }) => {
   return (
     <div
       ref={containerRef}
-      className={`relative w-full rounded-[28px] overflow-hidden border border-neutral-300 shadow-inner select-none transition-all duration-300 ${isFullscreen ? "h-screen bg-[#2c2c2c]" : "aspect-[16/10] sm:aspect-[16/9] min-h-[420px] max-h-[640px] bg-[#D4D4D4]"
-        }`}
+      className={`relative w-full rounded-[28px] overflow-hidden border border-neutral-300 shadow-inner select-none transition-all duration-300 ${
+        isFullscreen ? "h-screen bg-[#2c2c2c]" : "aspect-[16/10] sm:aspect-[16/9] min-h-[440px] max-h-[660px] bg-[#D4D4D4]"
+      }`}
     >
       {/* ─── Top Control Toolbar ─── */}
       <div className="absolute top-4 left-4 right-4 z-30 flex items-center justify-between pointer-events-none">
-        {/* Workspace Badge / Status */}
+        {/* Left: Workspace Badge */}
         <div className="pointer-events-auto flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-neutral-200 shadow-sm text-xs font-medium text-neutral-800 font-poppins">
           <span className="text-[#F24E1E]">
             <FigmaIcon />
           </span>
-          <span className="font-semibold">Workspace for Figma design</span>
-          {figmaEmbedUrl && (
-            <div className="flex ml-1.5 border-l border-neutral-200 pl-2 gap-1 text-[11px]">
+          <span className="font-semibold hidden sm:inline">Workspace</span>
+        </div>
+
+        {/* Center: Prominent Switcher Tabs (Prototype / Design / Canvas) */}
+        {(figmaProtoUrl || figmaEmbedUrl) && (
+          <div className="pointer-events-auto absolute left-1/2 -translate-x-1/2 flex items-center p-1 rounded-full bg-white/95 backdrop-blur-md border border-neutral-200 shadow-md gap-1 z-10 font-poppins">
+            {figmaProtoUrl && (
+              <button
+                type="button"
+                onClick={() => setActiveTab("prototype")}
+                className={`px-3.5 py-1 text-xs rounded-full transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
+                  activeTab === "prototype"
+                    ? "bg-neutral-900 text-white font-semibold shadow-xs"
+                    : "text-neutral-600 hover:text-black hover:bg-neutral-100"
+                }`}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                Prototype
+              </button>
+            )}
+            {figmaEmbedUrl && (
+              <button
+                type="button"
+                onClick={() => setActiveTab("design")}
+                className={`px-3.5 py-1 text-xs rounded-full transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
+                  activeTab === "design" || activeTab === "embed"
+                    ? "bg-neutral-900 text-white font-semibold shadow-xs"
+                    : "text-neutral-600 hover:text-black hover:bg-neutral-100"
+                }`}
+              >
+                Design
+              </button>
+            )}
+            {designImages.length > 0 && (
               <button
                 type="button"
                 onClick={() => setActiveTab("canvas")}
-                className={`px-2 py-0.5 rounded-full transition-colors ${activeTab === "canvas" ? "bg-neutral-900 text-white" : "text-neutral-600 hover:text-black"
-                  }`}
+                className={`px-3.5 py-1 text-xs rounded-full transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
+                  activeTab === "canvas"
+                    ? "bg-neutral-900 text-white font-semibold shadow-xs"
+                    : "text-neutral-600 hover:text-black hover:bg-neutral-100"
+                }`}
               >
                 Canvas
               </button>
-              <button
-                type="button"
-                onClick={() => setActiveTab("embed")}
-                className={`px-2 py-0.5 rounded-full transition-colors ${activeTab === "embed" ? "bg-neutral-900 text-white" : "text-neutral-600 hover:text-black"
-                  }`}
-              >
-                Live Embed
-              </button>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
 
         {/* Pan & Zoom Controls */}
         <div className="pointer-events-auto flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-neutral-200 shadow-sm text-xs text-neutral-800 font-poppins">
-          <button
-            type="button"
-            onClick={handleZoomOut}
-            title="Zoom out"
-            className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-neutral-100 active:scale-95 transition-all text-neutral-700 font-bold"
-          >
-            −
-          </button>
-          <button
-            type="button"
-            onClick={handleReset}
-            title="Click to reset zoom"
-            className="px-2 py-0.5 min-w-[50px] text-center font-semibold text-neutral-700 hover:text-black transition-colors"
-          >
-            {Math.round(scale * 100)}%
-          </button>
-          <button
-            type="button"
-            onClick={handleZoomIn}
-            title="Zoom in"
-            className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-neutral-100 active:scale-95 transition-all text-neutral-700 font-bold"
-          >
-            +
-          </button>
-
-          <div className="h-4 w-[1px] bg-neutral-200 mx-1" />
-
-          <button
-            type="button"
-            onClick={handleReset}
-            title="Reset position and zoom"
-            className="px-2 py-0.5 text-[11px] font-medium text-neutral-600 hover:text-neutral-900 transition-colors"
-          >
-            Fit
-          </button>
+          {!isInteractiveIframe && (
+            <>
+              <button
+                type="button"
+                onClick={handleZoomOut}
+                title="Zoom out"
+                className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-neutral-100 active:scale-95 transition-all text-neutral-700 font-bold"
+              >
+                −
+              </button>
+              <button
+                type="button"
+                onClick={handleReset}
+                title="Click to reset zoom"
+                className="px-2 py-0.5 min-w-[50px] text-center font-semibold text-neutral-700 hover:text-black transition-colors"
+              >
+                {Math.round(scale * 100)}%
+              </button>
+              <button
+                type="button"
+                onClick={handleZoomIn}
+                title="Zoom in"
+                className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-neutral-100 active:scale-95 transition-all text-neutral-700 font-bold"
+              >
+                +
+              </button>
+              <div className="h-4 w-[1px] bg-neutral-200 mx-1" />
+              <button
+                type="button"
+                onClick={handleReset}
+                title="Reset position and zoom"
+                className="px-2 py-0.5 text-[11px] font-medium text-neutral-600 hover:text-neutral-900 transition-colors"
+              >
+                Fit
+              </button>
+            </>
+          )}
 
           <button
             type="button"
             onClick={toggleFullscreen}
             title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
-            className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-neutral-100 active:scale-95 transition-all text-neutral-700"
+            className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-neutral-100 active:scale-95 transition-all text-neutral-700 cursor-pointer"
           >
             {isFullscreen ? (
               <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-none stroke-currentColor stroke-2">
@@ -315,15 +385,30 @@ const FigmaDesignWorkspace = ({ figmaEmbedUrl = "", designImages = [] }) => {
 
       {/* ─── Bottom-Left Helper Hint ─── */}
       <div className="absolute bottom-4 left-4 z-20 pointer-events-none hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 backdrop-blur-xs text-[11px] text-white/80 font-poppins">
-        <span>✋ Drag to pan left / right</span>
-        <span>•</span>
-        <span>🔍 Scroll or click + / − to zoom</span>
+        {activeTab === "prototype" ? (
+          <span>✨ Interactive Figma Prototype (Click to test flow)</span>
+        ) : activeTab === "design" || activeTab === "embed" ? (
+          <span>🔍 Figma Design Spec & Frames</span>
+        ) : (
+          <>
+            <span>✋ Drag to pan left / right</span>
+            <span>•</span>
+            <span>🔍 Scroll or click + / − to zoom</span>
+          </>
+        )}
       </div>
 
       {/* ─── Main Workspace Canvas ─── */}
-      {activeTab === "embed" && figmaEmbedUrl ? (
+      {activeTab === "prototype" && figmaProtoUrl ? (
         <iframe
-          src={figmaEmbedUrl}
+          src={toFigmaEmbedUrl(figmaProtoUrl)}
+          title="Figma Prototype Embed"
+          className="w-full h-full border-0"
+          allowFullScreen
+        />
+      ) : (activeTab === "design" || activeTab === "embed") && figmaEmbedUrl ? (
+        <iframe
+          src={toFigmaEmbedUrl(figmaEmbedUrl)}
           title="Figma Live Embed"
           className="w-full h-full border-0"
           allowFullScreen
@@ -520,6 +605,7 @@ export default function ProjectDetailTemplate({
   keyLearnings = "xxxxxxxxxxxxxxxxxx",
   tools = ["xxxxxx"],
   figmaEmbedUrl = "",
+  figmaProtoUrl = "",
   designImages = [],
   onContactClick,
 }) {
@@ -649,6 +735,7 @@ export default function ProjectDetailTemplate({
         <div className="mb-12">
           <FigmaDesignWorkspace
             figmaEmbedUrl={figmaEmbedUrl}
+            figmaProtoUrl={figmaProtoUrl}
             designImages={designImages}
           />
         </div>
@@ -698,9 +785,9 @@ export default function ProjectDetailTemplate({
           </button>
 
           {/* 5 Social Media Icons matching the screenshot layout */}
-          <div className="flex justify-end pt-1">
+          {/* <div className="flex justify-end pt-1">
             <SocialIconsRow />
-          </div>
+          </div> */}
         </div>
       </div>
 

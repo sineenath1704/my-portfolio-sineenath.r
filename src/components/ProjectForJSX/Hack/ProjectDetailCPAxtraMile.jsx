@@ -37,6 +37,7 @@ const DATA = {
       "Figma Presentation Mode"
     ],
     figmaEmbedUrl: "https://embed.figma.com/design/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=1-8213&embed-host=share",
+    figmaProtoUrl: "https://www.figma.com/proto/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=1-8213&t=dlI3YJVtV4Qouj3i-1",
     designImages: []
   },
   TH: {
@@ -72,6 +73,7 @@ const DATA = {
       "Presentation & Slide: Canva, Figma Presentation Mode"
     ],
     figmaEmbedUrl: "https://embed.figma.com/design/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=1-8213&embed-host=share",
+    figmaProtoUrl: "https://www.figma.com/proto/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=1-8213&t=dlI3YJVtV4Qouj3i-1",
     designImages: []
   }
 };
