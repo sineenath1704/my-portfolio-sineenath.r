@@ -330,15 +330,15 @@ export default function Resume() {
       <div className="page-container" ref={containerRef}>
         {/* Header */}
         <header className="header">
-          <h1>SINEENATH RUEANGSRI</h1>
+          <h1>สินีนาท เรืองศรี</h1>
           <div className="contact-info">
-            Bangkok, Thailand | (+66) 61-408-3711 | sineenath.work@gmail.com
+            กรุงเทพมหานคร, ประเทศไทย | (+66) 61-408-3711 | sineenath.work@gmail.com
           </div>
         </header>
 
         {/* Profile */}
         <section className="section">
-          <h2 className="section-title">PROFILE</h2>
+          <h2 className="section-title">โปรไฟล์</h2>
           <p className="profile-text">
             นักศึกษาชั้นปีที่ 3 สาขานวัตกรรมบริการดิจิทัล (DSI) มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี (มจธ.)
             มีความสนใจในการออกแบบ UX/UI และ Web Design พร้อมประสบการณ์ในการออกแบบ User Flows, Wireframes และ
@@ -351,7 +351,7 @@ export default function Resume() {
 
         {/* Education */}
         <section className="section">
-          <h2 className="section-title">EDUCATION</h2>
+          <h2 className="section-title">การศึกษา</h2>
           <div className="item-header">
             <div className="item-title">King Mongkut's University of Technology Thonburi,</div>
             <div className="item-date">2024 – Present</div>
@@ -379,7 +379,7 @@ export default function Resume() {
 
         {/* Projects */}
         <section className="section">
-          <h2 className="section-title">PROJECTS</h2>
+          <h2 className="section-title">โครงการ</h2>
 
           <div className="project-block">
             <div className="item-header">
@@ -447,7 +447,7 @@ export default function Resume() {
 
         {/* Additional Information */}
         <section className="section additional-info">
-          <h2 className="section-title">ADDITIONAL INFORMATION</h2>
+          <h2 className="section-title">ข้อมูลเพิ่มเติม</h2>
           <ul className="bullet-list">
             <li>
               <strong>UX/UI Design Skills:</strong> User Research &amp; Persona Creation, Wireframing &amp; User Flow,
