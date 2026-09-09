@@ -71,22 +71,164 @@ function Home() {
       {/* ฝั่งขวา: ปุ่ม Action */}
       <div className="absolute bottom-45 right-20 md:right-16 z-30 flex flex-col items-end space-y-6">
         <Link
-          to="/resume"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-4 cursor-pointer hover:opacity-70 transition-opacity"
-        >
-          <span className="font-poppins text-h1 font-semibold text-white">
-            {t.resume}
-          </span>
-          <div className="h-6 w-[1.5px] bg-white/50" />
-        </Link>
+  to="/resume"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="
+    group
+    relative
+    flex
+    items-center
+    gap-4
+    cursor-pointer
+  "
+>
+  {/* Text + Underline */}
+  <div className="relative">
+    <span
+      className="
+        font-poppins
+        text-h1
+        font-semibold
+        text-white
+        transition-all
+        duration-300
+        group-hover:text-white
+      "
+    >
+      {t.resume}
+    </span>
+
+    {/* Animated underline */}
+    <span
+      className="
+        absolute
+        -bottom-1
+        left-0
+        h-[1.5px]
+        w-0
+        bg-white
+        transition-all
+        duration-300
+        group-hover:w-full
+      "
+    />
+  </div>
+
+  {/* Divider */}
+  <div
+    className="
+      h-6
+      w-[1.5px]
+      bg-white/40
+      transition-all
+      duration-300
+      group-hover:h-8
+      group-hover:bg-white/70
+    "
+  />
+
+  {/* Arrow Circle */}
+  <div
+    className="
+      flex
+      h-8
+      w-8
+      items-center
+      justify-center
+      rounded-full
+      border
+      border-white/30
+      bg-white/10
+      backdrop-blur-sm
+      transition-all
+      duration-300
+      group-hover:translate-x-1
+      group-hover:border-white/70
+      group-hover:bg-white
+      group-hover:text-primary
+      group-hover:shadow-[0_0_20px_rgba(255,255,255,0.25)]
+    "
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={2}
+      stroke="currentColor"
+      className="
+        h-4
+        w-4
+        transition-transform
+        duration-300
+        group-hover:rotate-[-45deg]
+      "
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M5 12h14m-6-6 6 6-6 6"
+      />
+    </svg>
+  </div>
+</Link>
 
         <button
-          onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-          className="px-7 py-3 border border-white/30 bg-white/10 backdrop-blur-sm rounded-full font-poppins text-h1 font-semibold text-white hover:bg-white hover:text-primary transition-all duration-300"
+          onClick={() =>
+            document.getElementById("contact")?.scrollIntoView({
+              behavior: "smooth",
+            })
+          }
+          className="
+    group
+    relative
+    overflow-hidden
+    flex
+    items-center
+    gap-3
+    rounded-full
+    border
+    border-white/40
+    bg-white/15
+    px-7
+    py-3
+    font-poppins
+    text-h1
+    font-semibold
+    text-white
+    backdrop-blur-md
+    shadow-[0_8px_30px_rgba(0,0,0,0.12)]
+    transition-all
+    duration-300
+    hover:-translate-y-1
+    hover:border-white/70
+    hover:bg-white
+    hover:text-primary
+    hover:shadow-[0_12px_35px_rgba(255,255,255,0.25)]
+    active:translate-y-0
+    active:scale-95
+  "
         >
-          {t.cta}
+          {/* Shine Effect */}
+          <span
+            className="
+      absolute
+      inset-y-0
+      -left-1/2
+      w-1/3
+      rotate-12
+      bg-white/30
+      blur-md
+      transition-all
+      duration-700
+      group-hover:left-[120%]
+    "
+          />
+
+          {/* Button Text */}
+          <span className="relative z-10">
+            {t.cta}
+          </span>
         </button>
       </div>
     </section>

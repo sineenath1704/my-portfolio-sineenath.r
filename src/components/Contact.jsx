@@ -549,7 +549,7 @@ const handleSubmit = async (e) => {
         <div className="mt-16 text-center">
           <p className="text-2xl font-rochester text-neutral-800 mb-6">Sineenath Rueangsri</p>
 
-          <div className="flex justify-center gap-4 mb-12">
+          {/* <div className="flex justify-center gap-4 mb-12">
             {socialLinks.map((social) => (
               <a
                 key={social.label}
@@ -562,7 +562,7 @@ const handleSubmit = async (e) => {
                 {social.icon}
               </a>
             ))}
-          </div>
+          </div> */}
         </div>
 
       </div>

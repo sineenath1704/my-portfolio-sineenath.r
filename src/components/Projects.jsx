@@ -21,70 +21,74 @@ const PROJECT_DATA = [
   {
     id: 2,
     title: 'Focus Room Project',
-    role:    { EN: 'UX/UI Designer',     TH: 'UX/UI Designer' },
-    period:  { EN: 'March – May 2026',   TH: 'มี.ค. – พ.ค. 2569' },
-    subtitle:{ EN: 'DSI109 – User Interface and User Experience', TH: 'DSI109 – User Interface and User Experience' },
+    role: { EN: 'UX/UI Designer', TH: 'UX/UI Designer' },
+    period: { EN: 'March – May 2026', TH: 'มี.ค. – พ.ค. 2569' },
+    subtitle: { EN: 'DSI109 – User Interface and User Experience', TH: 'DSI109 – User Interface and User Experience' },
     description: {
       EN: 'Designed User Flows and Site Maps for a web application aimed at solving classroom environmental issues. Developed a Design System including Typography and Color Psychology. Created Low- to Medium-Fidelity Wireframes progressing to complete Mockups.',
       TH: 'ออกแบบ User Flows และ Site Maps สำหรับเว็บแอปฯ แก้ปัญหาสภาพแวดล้อมห้องเรียน พัฒนา Design System รวม Typography และ Color Psychology ทำ Wireframes ระดับ Low ถึง Medium จนถึง Mockup สมบูรณ์',
     },
     category: 'university',
     tag: { EN: 'University Project', TH: 'โปรเจกต์มหาวิทยาลัย' },
+    image: '/Picture/Cover-Project/FocusRoom-Cover.png',
     pdfFile: '/pdf/focus-room.pdf',
     detailPath: '/project-detail/focus-room',
   },
   {
     id: 3,
     title: 'CP Axtra Mile Hackathon',
-    role:    { EN: 'UX/UI Designer',  TH: 'UX/UI Designer' },
-    period:  { EN: 'Jun – Aug 2025',  TH: 'มิ.ย. – ส.ค. 2568' },
-    subtitle:{ EN: 'Smart Adviser feature on Makro Pro', TH: 'ฟีเจอร์ Smart Adviser บน Makro Pro' },
+    role: { EN: 'UX/UI Designer', TH: 'UX/UI Designer' },
+    period: { EN: 'Jun – Aug 2025', TH: 'มิ.ย. – ส.ค. 2568' },
+    subtitle: { EN: 'Smart Adviser feature on Makro Pro', TH: 'ฟีเจอร์ Smart Adviser บน Makro Pro' },
     description: {
       EN: 'Designed UI mockups for new features on Makro Pro including expiration date notifications, AI-powered recipe and food preservation recommendations, and personalized promotions.',
       TH: 'ออกแบบ UI Mockups สำหรับฟีเจอร์ใหม่บน Makro Pro ได้แก่ การแจ้งเตือนวันหมดอายุ, คำแนะนำสูตรอาหารและวิธีเก็บรักษาด้วย AI และโปรโมชันส่วนบุคคล',
     },
     category: 'academic',
     tag: { EN: 'Top 10 Finalist', TH: 'Top 10 Finalist' },
+    image: '/Picture/Cover-Project/CP-Axtra-Mile-Cover.png',
     pdfFile: '/pdf/axtra-mile.pdf',
     detailPath: '/project-detail/cp-axtra-mile',
   },
   {
     id: 4,
     title: 'HerEvidence Platform',
-    role:    { EN: 'UX/UI Designer & Developer', TH: 'UX/UI Designer & Developer' },
-    period:  { EN: 'May – Jun 2025',             TH: 'พ.ค. – มิ.ย. 2568' },
-    subtitle:{ EN: 'SIT Hackathon – Violence Survivor Evidence Platform', TH: 'SIT Hackathon – แพลตฟอร์มรวบรวมหลักฐานผู้รอดชีวิต' },
+    role: { EN: 'UX/UI Designer & Developer', TH: 'UX/UI Designer & Developer' },
+    period: { EN: 'May – Jun 2025', TH: 'พ.ค. – มิ.ย. 2568' },
+    subtitle: { EN: 'SIT Hackathon – Violence Survivor Evidence Platform', TH: 'SIT Hackathon – แพลตฟอร์มรวบรวมหลักฐานผู้รอดชีวิต' },
     description: {
       EN: 'Designed the complete user experience from User Flows and Wireframes to a High-Fidelity MVP using Figma. Developed Frontend and Backend using React and Node.js.',
       TH: 'ออกแบบประสบการณ์ผู้ใช้ครบวงจรตั้งแต่ User Flows, Wireframes ไปจนถึง High-Fidelity MVP ด้วย Figma พัฒนา Frontend และ Backend ด้วย React และ Node.js',
     },
     category: 'academic',
     tag: { EN: 'Honorable Mention', TH: 'รางวัล Honorable Mention' },
+    image: '/Picture/Cover-Project/Herevidence-Cover.png',
     pdfFile: '/pdf/herevidence.pdf',
     detailPath: '/project-detail/herevidence',
   },
   {
     id: 5,
     title: 'SIT Hello World Hippo',
-    role:    { EN: 'UX/UI Designer', TH: 'UX/UI Designer' },
-    period:  { EN: 'Jan – Feb 2025', TH: 'ม.ค. – ก.พ. 2568' },
-    subtitle:{ EN: 'SIT Room Booking System Redesign', TH: 'ออกแบบใหม่ระบบจองห้อง SIT' },
+    role: { EN: 'UX/UI Designer', TH: 'UX/UI Designer' },
+    period: { EN: 'Jan – Feb 2025', TH: 'ม.ค. – ก.พ. 2568' },
+    subtitle: { EN: 'SIT Room Booking System Redesign', TH: 'ออกแบบใหม่ระบบจองห้อง SIT' },
     description: {
       EN: 'Redesigned the complete user experience and interface from Wireframes to a High-Fidelity MVP Prototype based on the team database structure (ERD).',
       TH: 'ออกแบบ UX/UI ใหม่ทั้งหมดตั้งแต่ Wireframes จนถึง High-Fidelity MVP Prototype โดยอิงจากโครงสร้างฐานข้อมูล (ERD) ของทีม',
     },
     category: 'academic',
     tag: { EN: 'Hackathon', TH: 'Hackathon' },
+    image: '/Picture/Cover-Project/SIT-Hippo-Cover.png',
     pdfFile: '/pdf/sit-hippo.pdf',
     detailPath: '/project-detail/sit-hello-world-hippo',
   },
 ];
 
 const TABS_CONFIG = [
-  { key: 'all',        labelEN: 'Show All',             labelTH: 'ทั้งหมด' },
+  { key: 'all', labelEN: 'Show All', labelTH: 'ทั้งหมด' },
   { key: 'internship', labelEN: 'Internship Experience', labelTH: 'ประสบการณ์ฝึกงาน' },
-  { key: 'university', labelEN: 'University Project',    labelTH: 'โปรเจกต์มหาวิทยาลัย' },
-  { key: 'academic',   labelEN: 'Academic competition',  labelTH: 'การแข่งขันวิชาการ' },
+  { key: 'university', labelEN: 'University Project', labelTH: 'โปรเจกต์มหาวิทยาลัย' },
+  { key: 'academic', labelEN: 'Academic competition', labelTH: 'การแข่งขันวิชาการ' },
 ];
 
 const SECTION_TEXT = {
@@ -109,78 +113,6 @@ const SECTION_TEXT = {
     emptyState: 'ยังไม่มีโปรเจกต์ในหมวดนี้',
   },
 };
-
-const projects = [
-  {
-    id: 1,
-    title: 'ONEPUT TECHNOLOGY COMPANY LIMITED',
-    role: 'Web Designer',
-    period: 'October 15, 2025 – Present',
-    category: 'internship',
-    tag: 'Web Designer',
-    subtitle: 'Internship Experience',
-    description:
-      'Designed and developed web interfaces for ONEPUT Technology Company Limited, focusing on user experience, visual design, and responsive web development.',
-    pdfFile: '/pdf/oneput.pdf',
-    detailPath: '/project-detail/oneput',
-  },
-
-  {
-    id: 2,
-    title: 'Focus Room Project',
-    role: 'UX/UI Designer',
-    period: 'March – May 2026',
-    category: 'university',
-    tag: 'University Project',
-    subtitle: 'DSI109 – User Interface and User Experience',
-    description:
-      'Designed User Flows and Site Maps for a web application aimed at solving classroom environmental issues. Developed a Design System including Typography and Color Psychology. Created Low- to Medium-Fidelity Wireframes progressing to complete Mockups.',
-    pdfFile: '/pdf/focus-room.pdf',
-    detailPath: '/project-detail/focus-room',
-  },
-
-  {
-    id: 3,
-    title: 'CP Axtra Mile Hackathon',
-    role: 'UX/UI Designer',
-    period: 'Jun – Aug 2025',
-    category: 'academic',
-    tag: 'Top 10 Finalist',
-    subtitle: 'Smart Adviser feature on Makro Pro',
-    description:
-      'Designed UI mockups for new features on Makro Pro including expiration date notifications, AI-powered recipe and food preservation recommendations, and personalized promotions.',
-    pdfFile: '/pdf/axtra-mile.pdf',
-    detailPath: '/project-detail/cp-axtra-mile',
-  },
-
-  {
-    id: 4,
-    title: 'HerEvidence Platform',
-    role: 'UX/UI Designer & Developer',
-    period: 'May – Jun 2025',
-    category: 'academic',
-    tag: 'Honorable Mention',
-    subtitle: 'SIT Hackathon – Violence Survivor Evidence Platform',
-    description:
-      'Designed the complete user experience from User Flows and Wireframes to a High-Fidelity MVP using Figma. Developed Frontend and Backend using React and Node.js.',
-    pdfFile: '/pdf/herevidence.pdf',
-    detailPath: '/project-detail/herevidence',
-  },
-
-  {
-    id: 5,
-    title: 'SIT Hello World Hippo',
-    role: 'UX/UI Designer',
-    period: 'Jan – Feb 2025',
-    category: 'academic',
-    tag: 'Hackathon',
-    subtitle: 'SIT Room Booking System Redesign',
-    description:
-      'Redesigned the complete user experience and interface from Wireframes to a High-Fidelity MVP Prototype based on the team database structure (ERD).',
-    pdfFile: '/pdf/sit-hippo.pdf',
-    detailPath: '/project-detail/sit-hello-world-hippo',
-  },
-];
 
 // Keep a flat array for category-matching (same keys used in URL params)
 const tabs = TABS_CONFIG;
@@ -314,21 +246,52 @@ function Projects() {
         ========================= */}
         <div
           className="
-            relative
-            min-h-[600px]
-            overflow-hidden
-            rounded-[32px]
-            px-6
-            py-9
-            shadow-[0_0_30px_rgba(100,0,0,0.35)]
-            md:px-12
-            md:py-10
-          "
+    relative
+    min-h-[600px]
+    overflow-hidden
+    rounded-[50px]
+    border border-white
+    px-6
+    py-9
+    shadow-[0_0_0px_rgba(100,0,0,0.35)]
+    md:px-12
+    md:py-10
+  "
           style={{
             background:
-              'linear-gradient(180deg, #8f3030 0%, #a94242 18%, #dba9a9 48%, #f3dddd 72%, #ffffff 100%)',
+              'linear-gradient(180deg, #410000 -1%, #820000 5%, #dba9a9 48%, #f3dddd 72%, #ffffff 100%)',
           }}
         >
+          {/* Glass Layer */}
+          <div
+            className="
+      pointer-events-none 
+            absolute 
+            inset-0 
+            rounded-[50px] 
+            bg-white/[0.03] 
+            backdrop-blur-md 
+            shadow-[inset_0_1px_2px_rgba(255,255,255,0.2),_inset_0_0_20px_rgba(255,255,255,0.1)] 
+            shadow-2xl 
+            shadow-white/5
+    "
+          />
+
+          {/* Top Glass Highlight */}
+          <div
+            className="
+      pointer-events-none
+      absolute
+      left-0
+      right-0
+      top-0
+      h-32
+      rounded-t-[32px]
+      bg-gradient-to-b
+      from-white/20
+      to-transparent
+    "
+          />
 
           {/* Glow Overlay */}
           <div
@@ -374,15 +337,14 @@ function Projects() {
                       transition-all
                       duration-300
 
-                      ${
-                        isActive
-                          ? `
+                      ${isActive
+                        ? `
                             border-white/20
                             bg-white/20
                             text-white
                             shadow-[inset_0_0_12px_rgba(255,255,255,0.15)]
                           `
-                          : `
+                        : `
                             border-white/70
                             bg-transparent
                             text-white
@@ -406,152 +368,277 @@ function Projects() {
             ========================= */}
             <div
               className="
-                grid
-                grid-cols-1
-                gap-8
-                md:grid-cols-2
-                lg:grid-cols-3
-              "
+    grid
+    grid-cols-1
+    gap-7
+    md:grid-cols-2
+    lg:grid-cols-3
+  "
             >
               {filteredProjects.map((project) => (
                 <div
                   key={project.id}
                   className="
-                    group
-                    flex
-                    min-h-[255px]
-                    flex-col
-                    justify-between
-                    rounded-[20px]
-                    border
-                    border-[#e98282]/50
-                    bg-[#a83232]
-                    p-6
-                    text-white
-                    shadow-[0_4px_15px_rgba(90,0,0,0.45)]
-                    transition-all
-                    duration-300
-                    hover:-translate-y-1
-                    hover:shadow-[0_8px_25px_rgba(90,0,0,0.55)]
-                  "
+        group
+        flex
+        min-h-[470px]
+        flex-col
+        rounded-[24px]
+        border
+        border-[#8f3030]/10
+        bg-white
+        p-4
+        text-[#222]
+        shadow-[0_6px_20px_rgba(0,0,0,0.08)]
+        transition-all
+        duration-300
+        hover:-translate-y-2
+        hover:shadow-[0_14px_35px_rgba(0,0,0,0.14)]
+      "
                 >
 
-                  {/* Card Content */}
-                  <div>
-
-                    {/* Title */}
-                    <h3
+                  {/* =========================
+          Cover Image
+      ========================== */}
+                  {project.image && (
+                    <div
                       className="
-                        max-w-[330px]
-                        text-lg
-                        font-bold
-                        uppercase
-                        leading-snug
-                        text-white
-                      "
+            relative
+            h-[210px]
+            w-full
+            shrink-0
+            overflow-hidden
+            rounded-[18px]
+            bg-[#f5f5f5]
+          "
                     >
-                      {project.title}
-                    </h3>
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="
+              h-full
+              w-full
+              object-cover
+              transition-transform
+              duration-700
+              ease-out
+              group-hover:scale-[1.04]
+            "
+                      />
 
-                    {/* Role */}
-                    <p
-                      className="
-                        mt-5
-                        text-xs
-                        font-semibold
-                        text-white
-                      "
-                    >
-                      <span className="font-bold">{t.jobPosition}</span>{' '}
-                       {project.role}
-                    </p>
+                      {/* Subtle Overlay */}
+                      <div
+                        className="
+              absolute
+              inset-0
+              bg-gradient-to-t
+              from-black/20
+              via-transparent
+              to-transparent
+            "
+                      />
 
-                    {/* Period */}
-                    <p
-                      className="
-                        mt-4
-                        text-xs
-                        font-semibold
-                        leading-relaxed
-                        text-white
-                      "
-                    >
-                      <span className="font-bold">
-                        {t.workStartDate}
-                      </span>{' '}
-                      {project.period}
-                    </p>
+                      {/* Tag */}
+                      {project.tag && (
+                        <span
+                          className="
+                absolute
+                left-4
+                top-4
+                rounded-full
+                border
+                border-black/5
+                bg-white/80
+                px-3
+                py-1.5
+                text-[10px]
+                font-semibold
+                tracking-wide
+                text-[#8f3030]
+                shadow-sm
+                backdrop-blur-md
+              "
+                        >
+                          {project.tag}
+                        </span>
+                      )}
+                    </div>
+                  )}
 
-                  </div>
-
-
-                  {/* Bottom */}
+                  {/* =========================
+          Card Body
+      ========================== */}
                   <div
                     className="
-                      mt-8
-                      flex
-                      items-center
-                      justify-between
-                      gap-4
-                    "
+          flex
+          flex-1
+          flex-col
+          px-2
+          pb-2
+          pt-5
+        "
                   >
 
-                    {/* Buttons: Detail Project & Project Slide */}
-                    <div className="flex flex-wrap items-center gap-2">
+                    {/* =========================
+            Project Information
+        ========================== */}
+                    <div className="flex-1">
+
+                      {/* Title */}
+                      <h3
+                        className="
+              line-clamp-2
+              text-[17px]
+              font-bold
+              uppercase
+              leading-[1.35]
+              tracking-[0.01em]
+              text-[#222]
+            "
+                      >
+                        {project.title}
+                      </h3>
+
+                      {/* Divider */}
+                      <div
+                        className="
+              mt-4
+              h-px
+              w-full
+              bg-black/10
+            "
+                      />
+
+                      {/* Role */}
+                      <div className="mt-4">
+                        <p
+                          className="
+                text-[11px]
+                font-medium
+                uppercase
+                tracking-[0.08em]
+                text-[#8f3030]/60
+              "
+                        >
+                          {t.jobPosition}
+                        </p>
+
+                        <p
+                          className="
+                mt-1
+                text-xs
+                font-semibold
+                text-[#333]
+              "
+                        >
+                          {project.role}
+                        </p>
+                      </div>
+
+                      {/* Period */}
+                      <div className="mt-3">
+                        <p
+                          className="
+                text-[11px]
+                font-medium
+                uppercase
+                tracking-[0.08em]
+                text-[#8f3030]/60
+              "
+                        >
+                          {t.workStartDate}
+                        </p>
+
+                        <p
+                          className="
+                mt-1
+                text-xs
+                font-semibold
+                text-[#333]
+              "
+                        >
+                          {project.period}
+                        </p>
+                      </div>
+
+                    </div>
+
+                    {/* =========================
+            Buttons
+        ========================== */}
+                    <div
+                      className="
+            mt-7
+            flex
+            items-center
+            gap-2
+            border-t
+            border-black/10
+            pt-5
+          "
+                    >
+
+                      {/* Detail Project */}
                       <Link
                         to={project.detailPath}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="
-                          rounded-full
-                          border
-                          border-white/30
-                          bg-white
-                          px-5
-                          py-2.5
-                          text-xs
-                          font-semibold
-                          text-[#8f3030]
-                          shadow-[0_3px_8px_rgba(0,0,0,0.25)]
-                          transition-all
-                          duration-300
-                          hover:bg-[#fff5cf]
-                          hover:scale-105
-                        "
+              flex
+              flex-1
+              items-center
+              justify-center
+              rounded-full
+              border
+              border-[#8f3030]
+              bg-[#8f3030]
+              px-4
+              py-2.5
+              text-xs
+              font-bold
+              text-white
+              shadow-[0_3px_10px_rgba(143,48,48,0.18)]
+              transition-all
+              duration-300
+              hover:scale-[1.03]
+              hover:bg-[#a83232]
+            "
                       >
                         {t.detailBtn}
                       </Link>
 
+                      {/* Project Slide */}
                       {project.pdfFile && (
                         <a
                           href={project.pdfFile}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="
-                            rounded-full
-                            border
-                            border-white/20
-                            bg-white/20
-                            px-5
-                            py-2.5
-                            text-xs
-                            font-semibold
-                            text-white
-                            shadow-[0_3px_8px_rgba(0,0,0,0.25)]
-                            backdrop-blur-sm
-                            transition-all
-                            duration-300
-                            hover:bg-white
-                            hover:text-[#8f3030]
-                          "
+                flex
+                flex-1
+                items-center
+                justify-center
+                rounded-full
+                border
+                border-[#8f3030]/30
+                bg-[#8f3030]/5
+                px-4
+                py-2.5
+                text-xs
+                font-bold
+                text-[#8f3030]
+                transition-all
+                duration-300
+                hover:scale-[1.03]
+                hover:bg-[#8f3030]
+                hover:text-white
+              "
                         >
                           {t.slideBtn}
                         </a>
                       )}
                     </div>
-
                   </div>
-
                 </div>
               ))}
             </div>
