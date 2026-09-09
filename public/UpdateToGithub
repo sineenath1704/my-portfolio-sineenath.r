@@ -1,4 +1,4 @@
 npm run build
 git add .
-git commit -m "Update Project Section"
+git commit -m "Update AI Tools AboutMe"
 git push

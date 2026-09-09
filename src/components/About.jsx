@@ -1,5 +1,5 @@
 import React from 'react';
-import { Html5, Css, Javascript, React as ReactIcon, TailwindCss, Mysql, Figma, Canva } from '@thesvg/react';
+import { Html5, Css, Javascript, React as ReactIcon, TailwindCss, Mysql, Figma, Canva, VisualStudioCode, GoogleAntigravity, Claude, Gemini, OpenaiChatgpt } from '@thesvg/react';
 import { useLanguage } from '../context/LanguageContext';
 
 const TEXT = {
@@ -24,6 +24,7 @@ const TEXT = {
     toolsTitle: 'Tools',
     designTools: 'Design Tools',
     frontendSkills: 'Frontend Skills (Foundational)',
+    aiTools: 'AI Tools',
     additionalInfo: 'Additional Information',
     uxSkillsTitle: 'UX/UI Design Skills',
     uxSkills: ['User Research & Persona Creation', 'Wireframing & User Flow', 'Interactive Prototyping', 'Information Architecture', 'Responsive Web & Mobile Design'],
@@ -53,6 +54,7 @@ const TEXT = {
     toolsTitle: 'เครื่องมือ',
     designTools: 'เครื่องมือออกแบบ',
     frontendSkills: 'ทักษะ Frontend (พื้นฐาน)',
+    aiTools: 'เครื่องมือ AI',
     additionalInfo: 'ข้อมูลเพิ่มเติม',
     uxSkillsTitle: 'ทักษะ UX/UI Design',
     uxSkills: ['การวิจัยผู้ใช้และสร้าง Persona', 'Wireframing & User Flow', 'Interactive Prototyping', 'Information Architecture', 'การออกแบบ Web & Mobile แบบ Responsive'],
@@ -75,9 +77,22 @@ function About() {
     mysql: <Mysql className="h-8 w-8" />,
     figma: <Figma className="h-8 w-8" />,
     canva: <Canva className="h-8 w-8" />,
+    GoogleAntigravity: <GoogleAntigravity className="h-8 w-8" />,
+    claude: <Claude className="h-8 w-8" />,
+    gemini: <Gemini className="h-8 w-8" />,
+    chatgpt: <OpenaiChatgpt className="h-8 w-8" />,
+    VScode: <VisualStudioCode className="h-8 w-8" />,
   };
 
+  const aiTools = [
+    { label: 'Google Antigravity', iconKey: 'GoogleAntigravity' },
+    { label: 'Claude', iconKey: 'claude' },
+    { label: 'Gemini', iconKey: 'gemini' },
+    { label: 'OpenAI ChatGPT', iconKey: 'chatgpt' },
+  ]
+
   const technicalSkills = [
+    { label: 'Visual Studio Code', iconKey: 'VScode' },
     { label: 'HTML', iconKey: 'html' },
     { label: 'CSS', iconKey: 'css' },
     { label: 'JS', iconKey: 'js' },
@@ -194,7 +209,7 @@ function About() {
             {/* Design Tools */}
             <div>
               <h4 className="font-bold text-sm text-black mb-6">{t.designTools}</h4>
-              <div className="flex flex-wrap gap-6">
+              <div className="flex flex-wrap gap-5">
                 {designTools.map((tool) => (
                   <div key={tool.label} className="flex flex-col items-center gap-3">
                     <div className="w-20 h-20 bg-gradient-to-br from-neutral-100 to-neutral-200 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-xl transition-all border border-neutral-300">
@@ -215,8 +230,7 @@ function About() {
               <h4 className="font-bold text-sm text-black mb-6">
                 {t.frontendSkills}
               </h4>
-
-              <div className="flex flex-wrap gap-6">
+              <div className="flex flex-wrap gap-5">
                 {technicalSkills.map((skill) => (
                   <div key={skill.label} className="flex flex-col items-center gap-3">
                     <div className="w-20 h-20 bg-black rounded-2xl flex items-center justify-center shadow-lg hover:shadow-xl transition-all border border-neutral-300">
@@ -226,6 +240,32 @@ function About() {
                     </div>
                     <span className="text-xs font-medium text-neutral-700">
                       {skill.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* AI Tools */}
+            <div>
+              <h4 className="font-bold text-sm text-black mb-6">
+                {t.aiTools}
+              </h4>
+
+              <div className="flex items-start gap-5 flex-nowrap">
+                {aiTools.map((tool) => (
+                  <div
+                    key={tool.label}
+                    className="flex flex-col items-center gap-3 shrink-0"
+                  >
+                    <div className="w-20 h-20 bg-gradient-to-br from-neutral-100 to-neutral-200 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-xl transition-all border border-neutral-300">
+                      <div className="text-4xl">
+                        {iconMap[tool.iconKey]}
+                      </div>
+                    </div>
+
+                    <span className="text-xs font-medium text-neutral-700 text-center">
+                      {tool.label}
                     </span>
                   </div>
                 ))}
