@@ -40,7 +40,8 @@ const DATA = {
     ],
     figmaEmbedUrl: "https://embed.figma.com/design/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=0-1&embed-host=share",
     figmaProtoUrl: "https://www.figma.com/proto/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=1-1527&t=dlI3YJVtV4Qouj3i-1",
-    designImages: []
+    designImages: [],
+    pdfFile: "/pdf/focus-room.pdf"
   },
   TH: {
     projectName: "Focus Room Project",
@@ -78,7 +79,8 @@ const DATA = {
     ],
     figmaEmbedUrl: "https://embed.figma.com/design/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=0-1&embed-host=share",
     figmaProtoUrl: "https://www.figma.com/proto/S7cmL83OOt9bXdVjXV7ZyJ/Portfolio-Show-Case?node-id=1-1527&t=dlI3YJVtV4Qouj3i-1",
-    designImages: []
+    designImages: [],
+    pdfFile: "/pdf/focus-room.pdf"
   }
 };
 

@@ -1,4 +1,4 @@
 npm run build
 git add .
-git commit -m "Update Portfolio PDF"
+git commit -m "Update pdf file in ProjectDetail"
 git push

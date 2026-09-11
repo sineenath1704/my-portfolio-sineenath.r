@@ -13,6 +13,7 @@ const TEMPLATE_TEXT = {
     keyLearnings: 'Key learnings',
     tools: 'Tools',
     ctaBtn: 'Contact to work together',
+    presentationPdfBtn: 'PDF File For Presentation',
     categories: {
       internship: 'Internship Experience',
       university: 'University Project',
@@ -29,6 +30,7 @@ const TEMPLATE_TEXT = {
     keyLearnings: 'สิ่งที่ได้เรียนรู้',
     tools: 'เครื่องมือ',
     ctaBtn: 'ติดต่อเพื่อร่วมงานกัน',
+    presentationPdfBtn: 'PDF File For Presentation',
     categories: {
       internship: 'ประสบการณ์ฝึกงาน',
       university: 'โปรเจกต์มหาวิทยาลัย',
@@ -590,6 +592,23 @@ const FigmaDesignWorkspace = ({
   );
 };
 
+// ─── PDF Presentation Map ───
+const PROJECT_PDF_MAP = {
+  'focus-room': '/pdf/focus-room.pdf',
+  'focus room': '/pdf/focus-room.pdf',
+  'focus room project': '/pdf/focus-room.pdf',
+  'cp axtra mile': '/pdf/axtra-mile.pdf',
+  'cp-axtra-mile': '/pdf/axtra-mile.pdf',
+  'smart adviser': '/pdf/axtra-mile.pdf',
+  'smart adviser (makro pro)': '/pdf/axtra-mile.pdf',
+  'makro pro': '/pdf/axtra-mile.pdf',
+  'herevidence': '/pdf/herevidence.pdf',
+  'herevidence platform': '/pdf/herevidence.pdf',
+  'sit hello world hippo': '/pdf/sit-hippo.pdf',
+  'sit-hello-world-hippo': '/pdf/sit-hippo.pdf',
+  'sit hippo': '/pdf/sit-hippo.pdf',
+};
+
 // ─── Main ProjectDetailTemplate Component ───
 export default function ProjectDetailTemplate({
   projectName = "NAME PROJECT",
@@ -607,6 +626,7 @@ export default function ProjectDetailTemplate({
   figmaEmbedUrl = "",
   figmaProtoUrl = "",
   designImages = [],
+  pdfFile = "",
   onContactClick,
 }) {
   const targetCategoryKey = (() => {
@@ -625,6 +645,12 @@ export default function ProjectDetailTemplate({
 
   const displayParentCategory = tl.parentCategory || parentCategory;
   const displayCategoryName = tl.categories?.[targetCategoryKey] || categoryName;
+
+  const resolvedPdfFile =
+    pdfFile ||
+    (projectName && PROJECT_PDF_MAP[projectName.toLowerCase().trim()]) ||
+    (categoryKey && PROJECT_PDF_MAP[categoryKey.toLowerCase().trim()]) ||
+    "";
 
   const handleScrollToContact = () => {
     if (onContactClick) {
@@ -738,6 +764,40 @@ export default function ProjectDetailTemplate({
             figmaProtoUrl={figmaProtoUrl}
             designImages={designImages}
           />
+
+          {/* ─── PDF File For Presentation Button ─── */}
+          {resolvedPdfFile && (
+            <div className="mt-4 flex items-center justify-end">
+              <a
+                href={resolvedPdfFile}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full border border-[#8f3030]/30 bg-[#FFF5CF]/70 text-[#610200] hover:bg-[#610200] hover:text-white hover:border-[#610200] font-poppins font-semibold text-xs sm:text-sm shadow-xs hover:shadow-md hover:scale-[1.02] active:scale-98 transition-all duration-300 group cursor-pointer"
+              >
+                <svg
+                  className="w-4 h-4 fill-none stroke-currentColor stroke-2 transition-transform group-hover:scale-110"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                  />
+                </svg>
+                <span>{tl.presentationPdfBtn || "PDF File For Presentation"}</span>
+                <svg
+                  className="w-3.5 h-3.5 fill-none stroke-currentColor stroke-2 transition-transform group-hover:translate-x-1"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </a>
+            </div>
+          )}
         </div>
 
         {/* ─── Content Sections (Left Black Border Bar) ─── */}
