@@ -23,6 +23,7 @@ import ProjectDetailFocusRoom from './components/ProjectForJSX/University/Projec
 import ProjectDetailCPAxtraMile from './components/ProjectForJSX/Hack/ProjectDetailCPAxtraMile'
 import ProjectDetailHerEvidence from './components/ProjectForJSX/Hack/ProjectDetailHerEvidence'
 import ProjectDetailSITHelloWorldHippo from './components/ProjectForJSX/Hack/ProjectDetailSITHelloWorldHippo'
+import PortfolioDownloadPDF from './components/ProjectForJSX/PortfolioDownloadPDF'
 
 
 function ScrollToHash() {
@@ -191,6 +192,16 @@ function App() {
           <Route
             path="/ProjectDetailSITHelloWorldHippo"
             element={<ProjectDetailSITHelloWorldHippo />}
+          />
+
+          <Route
+            path="/portfolio-download-pdf"
+            element={<PortfolioDownloadPDF />}
+          />
+
+          <Route
+            path="/portfolio-pdf"
+            element={<PortfolioDownloadPDF />}
           />
 
         </Routes>

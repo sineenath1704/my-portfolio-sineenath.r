@@ -6,12 +6,14 @@ const TEXT = {
   EN: {
     portfolio: 'Portfolio',
     role: 'DESIGNER',
+    portfolioPdf: 'Portfolio (PDF)',
     resume: 'Resume',
     cta: "Let's work together",
   },
   TH: {
     portfolio: 'Portfolio',
     role: 'DESIGNER',
+    portfolioPdf: 'พอร์ตโฟลิโอ (PDF)',
     resume: 'เรซูเม่',
     cta: 'ร่วมงานกับฉัน',
   },
@@ -70,11 +72,12 @@ function Home() {
 
       {/* ฝั่งขวา: ปุ่ม Action */}
       <div className="absolute bottom-45 right-20 md:right-16 z-30 flex flex-col items-end space-y-6">
+        {/* ปุ่ม Portfolio (PDF) */}
         <Link
-  to="/resume"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="
+          to="/portfolio-download-pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="
     group
     relative
     flex
@@ -82,11 +85,11 @@ function Home() {
     gap-4
     cursor-pointer
   "
->
-  {/* Text + Underline */}
-  <div className="relative">
-    <span
-      className="
+        >
+          {/* Text + Underline */}
+          <div className="relative">
+            <span
+              className="
         font-poppins
         text-h1
         font-semibold
@@ -95,13 +98,13 @@ function Home() {
         duration-300
         group-hover:text-white
       "
-    >
-      {t.resume}
-    </span>
+            >
+              {t.portfolioPdf}
+            </span>
 
-    {/* Animated underline */}
-    <span
-      className="
+            {/* Animated underline */}
+            <span
+              className="
         absolute
         -bottom-1
         left-0
@@ -112,12 +115,12 @@ function Home() {
         duration-300
         group-hover:w-full
       "
-    />
-  </div>
+            />
+          </div>
 
-  {/* Divider */}
-  <div
-    className="
+          {/* Divider */}
+          <div
+            className="
       h-6
       w-[1.5px]
       bg-white/40
@@ -126,11 +129,11 @@ function Home() {
       group-hover:h-8
       group-hover:bg-white/70
     "
-  />
+          />
 
-  {/* Arrow Circle */}
-  <div
-    className="
+          {/* Arrow Circle */}
+          <div
+            className="
       flex
       h-8
       w-8
@@ -149,29 +152,132 @@ function Home() {
       group-hover:text-primary
       group-hover:shadow-[0_0_20px_rgba(255,255,255,0.25)]
     "
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={2}
-      stroke="currentColor"
-      className="
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="
         h-4
         w-4
         transition-transform
         duration-300
         group-hover:rotate-[-45deg]
       "
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M5 12h14m-6-6 6 6-6 6"
-      />
-    </svg>
-  </div>
-</Link>
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 12h14m-6-6 6 6-6 6"
+              />
+            </svg>
+          </div>
+        </Link>
+
+        <Link
+          to="/resume"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="
+    group
+    relative
+    flex
+    items-center
+    gap-4
+    cursor-pointer
+  "
+        >
+          {/* Text + Underline */}
+          <div className="relative">
+            <span
+              className="
+        font-poppins
+        text-h1
+        font-semibold
+        text-white
+        transition-all
+        duration-300
+        group-hover:text-white
+      "
+            >
+              {t.resume}
+            </span>
+
+            {/* Animated underline */}
+            <span
+              className="
+        absolute
+        -bottom-1
+        left-0
+        h-[1.5px]
+        w-0
+        bg-white
+        transition-all
+        duration-300
+        group-hover:w-full
+      "
+            />
+          </div>
+
+          {/* Divider */}
+          <div
+            className="
+      h-6
+      w-[1.5px]
+      bg-white/40
+      transition-all
+      duration-300
+      group-hover:h-8
+      group-hover:bg-white/70
+    "
+          />
+
+          {/* Arrow Circle */}
+          <div
+            className="
+      flex
+      h-8
+      w-8
+      items-center
+      justify-center
+      rounded-full
+      border
+      border-white/30
+      bg-white/10
+      backdrop-blur-sm
+      transition-all
+      duration-300
+      group-hover:translate-x-1
+      group-hover:border-white/70
+      group-hover:bg-white
+      group-hover:text-primary
+      group-hover:shadow-[0_0_20px_rgba(255,255,255,0.25)]
+    "
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="
+        h-4
+        w-4
+        transition-transform
+        duration-300
+        group-hover:rotate-[-45deg]
+      "
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 12h14m-6-6 6 6-6 6"
+              />
+            </svg>
+          </div>
+        </Link>
 
         <button
           onClick={() =>
