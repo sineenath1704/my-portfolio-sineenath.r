@@ -13,7 +13,8 @@ const TEMPLATE_TEXT = {
     keyLearnings: 'Key learnings',
     tools: 'Tools',
     ctaBtn: 'Contact to work together',
-    presentationPdfBtn: 'PDF File For Presentation',
+    presentationPdfBtn: 'Presentation',
+    viewMoreProjects: 'View More Projects',
     categories: {
       internship: 'Internship Experience',
       university: 'University Project',
@@ -30,7 +31,8 @@ const TEMPLATE_TEXT = {
     keyLearnings: 'สิ่งที่ได้เรียนรู้',
     tools: 'เครื่องมือ',
     ctaBtn: 'ติดต่อเพื่อร่วมงานกัน',
-    presentationPdfBtn: 'PDF File For Presentation',
+    presentationPdfBtn: 'ดูสไลด์นำเสนอ',
+    viewMoreProjects: 'ดูงานอื่นเพิ่มเติม',
     categories: {
       internship: 'ประสบการณ์ฝึกงาน',
       university: 'โปรเจกต์มหาวิทยาลัย',
@@ -665,45 +667,74 @@ export default function ProjectDetailTemplate({
     }
   };
 
+  const handleBackToProjects = () => {
+    const elem = document.getElementById("projects");
+    if (elem) {
+      elem.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white text-neutral-900 font-poppins antialiased">
       {/* ─── Breadcrumb Navigation ─── */}
       <div className="border-b border-neutral-200 px-6 sm:px-12 py-4">
         <div className="flex items-center justify-between max-w-6xl mx-auto gap-4">
-          <nav className="flex items-center gap-2 text-xs sm:text-sm font-poppins flex-wrap">
-            <Link
-              to="/home"
-              className="text-neutral-600 hover:text-black transition-colors"
-            >
-              {tl.home}
-            </Link>
-            <span className="text-neutral-400 font-normal">›</span>
+          <div className="flex items-center gap-3 flex-wrap">
+            {/* Quick back pill */}
             <Link
               to="/home?category=all#projects"
               state={{ category: "all" }}
-              onClick={() => {
-                const elem = document.getElementById("projects");
-                if (elem) elem.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="text-neutral-600 hover:text-black transition-colors"
+              onClick={handleBackToProjects}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-neutral-300 bg-white text-xs font-semibold text-neutral-700 hover:text-black hover:border-neutral-400 hover:bg-neutral-50 transition-all cursor-pointer shadow-2xs group"
+              title={tl.viewMoreProjects}
             >
-              {displayParentCategory}
+              <svg
+                className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-0.5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+                />
+              </svg>
+              <span>{tl.viewMoreProjects}</span>
             </Link>
-            <span className="text-neutral-400 font-normal">›</span>
-            <Link
-              to={`/home?category=${targetCategoryKey}#projects`}
-              state={{ category: targetCategoryKey }}
-              onClick={() => {
-                const elem = document.getElementById("projects");
-                if (elem) elem.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="text-neutral-600 hover:text-black cursor-pointer transition-colors"
-            >
-              {displayCategoryName}
-            </Link>
-            <span className="text-neutral-400 font-normal">›</span>
-            <span className="font-bold text-neutral-900">{projectName}</span>
-          </nav>
+
+            <span className="text-neutral-300 hidden sm:inline">|</span>
+
+            <nav className="flex items-center gap-2 text-xs sm:text-sm font-poppins flex-wrap">
+              <Link
+                to="/home"
+                className="text-neutral-600 hover:text-black transition-colors"
+              >
+                {tl.home}
+              </Link>
+              <span className="text-neutral-400 font-normal">›</span>
+              <Link
+                to="/home?category=all#projects"
+                state={{ category: "all" }}
+                onClick={handleBackToProjects}
+                className="text-neutral-600 hover:text-black transition-colors"
+              >
+                {displayParentCategory}
+              </Link>
+              <span className="text-neutral-400 font-normal">›</span>
+              <Link
+                to={`/home?category=${targetCategoryKey}#projects`}
+                state={{ category: targetCategoryKey }}
+                onClick={handleBackToProjects}
+                className="text-neutral-600 hover:text-black cursor-pointer transition-colors"
+              >
+                {displayCategoryName}
+              </Link>
+              <span className="text-neutral-400 font-normal">›</span>
+              <span className="font-bold text-neutral-900">{projectName}</span>
+            </nav>
+          </div>
 
           {/* Language Switcher */}
           <div 
@@ -784,7 +815,7 @@ export default function ProjectDetailTemplate({
                     d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
                   />
                 </svg>
-                <span>{tl.presentationPdfBtn || "PDF File For Presentation"}</span>
+                <span>{tl.presentationPdfBtn || "Presentation"}</span>
                 <svg
                   className="w-3.5 h-3.5 fill-none stroke-currentColor stroke-2 transition-transform group-hover:translate-x-1"
                   viewBox="0 0 24 24"
@@ -834,20 +865,54 @@ export default function ProjectDetailTemplate({
           </Section>
         </div>
 
-        {/* ─── Footer / CTA (Bottom Right: Button & Colored Social Icons) ─── */}
-        <div className="flex flex-col items-end gap-4 mt-16 sm:mt-24">
-          <button
-            type="button"
-            onClick={handleScrollToContact}
-            className="px-8 py-3 rounded-full bg-[#FDEFC9] text-[#610200] font-poppins font-bold text-sm border border-[#E3C985] shadow-xs hover:bg-[#fae7b0] active:scale-98 transition-all cursor-pointer"
-          >
-            {tl.ctaBtn}
-          </button>
+        {/* ─── Footer / Navigation & CTA Buttons ─── */}
+        <div className="mt-16 sm:mt-24 pt-8 border-t border-neutral-200">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            {/* ปุ่มดูงานอื่นเพิ่มเติม (กลับไปที่ Section Projects.jsx) */}
+            <Link
+              to="/home?category=all#projects"
+              state={{ category: "all" }}
+              onClick={handleBackToProjects}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-3.5 rounded-full border-2 border-[#610200] bg-white text-[#610200] hover:bg-[#610200] hover:text-white font-poppins font-bold text-sm shadow-xs hover:shadow-md hover:scale-[1.02] active:scale-98 transition-all duration-300 group cursor-pointer"
+            >
+              <svg
+                className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.5}
+                  d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+                />
+              </svg>
+              <span>{tl.viewMoreProjects}</span>
+            </Link>
 
-          {/* 5 Social Media Icons matching the screenshot layout */}
-          {/* <div className="flex justify-end pt-1">
-            <SocialIconsRow />
-          </div> */}
+            {/* ปุ่มติดต่อเพื่อร่วมงานกัน */}
+            <button
+              type="button"
+              onClick={handleScrollToContact}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-[#FDEFC9] text-[#610200] font-poppins font-bold text-sm border border-[#E3C985] shadow-xs hover:bg-[#fae7b0] hover:shadow-md hover:scale-[1.02] active:scale-98 transition-all duration-300 cursor-pointer text-center"
+            >
+              <span>{tl.ctaBtn}</span>
+              <svg
+                className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
 

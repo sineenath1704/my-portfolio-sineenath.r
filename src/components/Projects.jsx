@@ -99,7 +99,7 @@ const SECTION_TEXT = {
     jobPosition: 'Job position:',
     workStartDate: 'Work start date:',
     detailBtn: 'Detail Project',
-    slideBtn: 'Project Slide',
+    slideBtn: 'presentation Slide',
     emptyState: 'No projects available in this category.',
   },
   TH: {

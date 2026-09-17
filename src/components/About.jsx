@@ -78,6 +78,16 @@ function About() {
     figma: <Figma className="h-8 w-8" />,
     canva: <Canva className="h-8 w-8" />,
     GoogleAntigravity: <GoogleAntigravity className="h-8 w-8" />,
+    antigravityIDE: (
+      <img
+        src="/icons/Antigravity-IDE.jpg"
+        alt="Antigravity-IDE"
+        className="h-8 w-8 rounded-lg object-cover shadow-2xs"
+        onError={(e) => {
+          e.currentTarget.src = '/icons/Aintigravity-IDE.jpg';
+        }}
+      />
+    ),
     claude: <Claude className="h-8 w-8" />,
     gemini: <Gemini className="h-8 w-8" />,
     chatgpt: <OpenaiChatgpt className="h-8 w-8" />,
@@ -86,10 +96,11 @@ function About() {
 
   const aiTools = [
     { label: 'Google Antigravity', iconKey: 'GoogleAntigravity' },
+    { label: 'Antigravity-IDE', iconKey: 'antigravityIDE' },
     { label: 'Claude', iconKey: 'claude' },
     { label: 'Gemini', iconKey: 'gemini' },
     { label: 'OpenAI ChatGPT', iconKey: 'chatgpt' },
-  ]
+  ];
 
   const technicalSkills = [
     { label: 'Visual Studio Code', iconKey: 'VScode' },
@@ -204,7 +215,7 @@ function About() {
             <h3 className="font-bold text-lg text-black">{t.toolsTitle}</h3>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_3fr] gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr_2fr] gap-10">
 
             {/* Design Tools */}
             <div>
@@ -252,7 +263,7 @@ function About() {
                 {t.aiTools}
               </h4>
 
-              <div className="flex items-start gap-5 flex-nowrap">
+              <div className="flex flex-wrap items-start gap-5">
                 {aiTools.map((tool) => (
                   <div
                     key={tool.label}
