@@ -1,7 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import BackToTop from "../BackToTop";
 import { useLanguage } from "../../context/LanguageContext";
+import { PROJECT_DATA } from "../Projects";
+import {
+  PresentationChartLineIcon as PresentationChartLine,
+} from "@heroicons/react/24/solid";
 
 const TEMPLATE_TEXT = {
   EN: {
@@ -15,6 +19,14 @@ const TEMPLATE_TEXT = {
     ctaBtn: 'Contact to work together',
     presentationPdfBtn: 'Presentation',
     viewMoreProjects: 'View More Projects',
+    otherProjectsBadge: 'Portfolio Showcase',
+    otherProjectsTitle: 'Explore Other Projects',
+    otherProjectsSub: 'Discover more works and case studies',
+    viewProjectBtn: 'View Project',
+    viewSlideBtn: 'Slide',
+    backToAllProjects: 'Back to all projects',
+    roleLabel: 'Role:',
+    periodLabel: 'Period:',
     categories: {
       internship: 'Internship Experience',
       university: 'University Project',
@@ -33,6 +45,14 @@ const TEMPLATE_TEXT = {
     ctaBtn: 'ติดต่อเพื่อร่วมงานกัน',
     presentationPdfBtn: 'ดูสไลด์นำเสนอ',
     viewMoreProjects: 'ดูงานอื่นเพิ่มเติม',
+    otherProjectsBadge: 'Portfolio Showcase',
+    otherProjectsTitle: 'ผลงานอื่นๆ ที่น่าสนใจ',
+    otherProjectsSub: 'เลือกชมผลงานและกรณีศึกษาอื่นๆ ได้ทันที',
+    viewProjectBtn: 'ดูรายละเอียด',
+    viewSlideBtn: 'สไลด์โปรเจกต์',
+    backToAllProjects: 'ดูผลงานทั้งหมดในหน้าแรก',
+    roleLabel: 'ตำแหน่ง:',
+    periodLabel: 'ช่วงเวลา:',
     categories: {
       internship: 'ประสบการณ์ฝึกงาน',
       university: 'โปรเจกต์มหาวิทยาลัย',
@@ -268,9 +288,8 @@ const FigmaDesignWorkspace = ({
   return (
     <div
       ref={containerRef}
-      className={`relative w-full rounded-[28px] overflow-hidden border border-neutral-300 shadow-inner select-none transition-all duration-300 ${
-        isFullscreen ? "h-screen bg-[#2c2c2c]" : "aspect-[16/10] sm:aspect-[16/9] min-h-[440px] max-h-[660px] bg-[#D4D4D4]"
-      }`}
+      className={`relative w-full rounded-[28px] overflow-hidden border border-neutral-300 shadow-inner select-none transition-all duration-300 ${isFullscreen ? "h-screen bg-[#2c2c2c]" : "aspect-[16/10] sm:aspect-[16/9] min-h-[440px] max-h-[660px] bg-[#D4D4D4]"
+        }`}
     >
       {/* ─── Top Control Toolbar ─── */}
       <div className="absolute top-4 left-4 right-4 z-30 flex items-center justify-between pointer-events-none">
@@ -289,11 +308,10 @@ const FigmaDesignWorkspace = ({
               <button
                 type="button"
                 onClick={() => setActiveTab("prototype")}
-                className={`px-3.5 py-1 text-xs rounded-full transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
-                  activeTab === "prototype"
-                    ? "bg-neutral-900 text-white font-semibold shadow-xs"
-                    : "text-neutral-600 hover:text-black hover:bg-neutral-100"
-                }`}
+                className={`px-3.5 py-1 text-xs rounded-full transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${activeTab === "prototype"
+                  ? "bg-neutral-900 text-white font-semibold shadow-xs"
+                  : "text-neutral-600 hover:text-black hover:bg-neutral-100"
+                  }`}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 Prototype
@@ -303,11 +321,10 @@ const FigmaDesignWorkspace = ({
               <button
                 type="button"
                 onClick={() => setActiveTab("design")}
-                className={`px-3.5 py-1 text-xs rounded-full transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
-                  activeTab === "design" || activeTab === "embed"
-                    ? "bg-neutral-900 text-white font-semibold shadow-xs"
-                    : "text-neutral-600 hover:text-black hover:bg-neutral-100"
-                }`}
+                className={`px-3.5 py-1 text-xs rounded-full transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${activeTab === "design" || activeTab === "embed"
+                  ? "bg-neutral-900 text-white font-semibold shadow-xs"
+                  : "text-neutral-600 hover:text-black hover:bg-neutral-100"
+                  }`}
               >
                 Design
               </button>
@@ -316,11 +333,10 @@ const FigmaDesignWorkspace = ({
               <button
                 type="button"
                 onClick={() => setActiveTab("canvas")}
-                className={`px-3.5 py-1 text-xs rounded-full transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
-                  activeTab === "canvas"
-                    ? "bg-neutral-900 text-white font-semibold shadow-xs"
-                    : "text-neutral-600 hover:text-black hover:bg-neutral-100"
-                }`}
+                className={`px-3.5 py-1 text-xs rounded-full transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${activeTab === "canvas"
+                  ? "bg-neutral-900 text-white font-semibold shadow-xs"
+                  : "text-neutral-600 hover:text-black hover:bg-neutral-100"
+                  }`}
               >
                 Canvas
               </button>
@@ -654,6 +670,55 @@ export default function ProjectDetailTemplate({
     (categoryKey && PROJECT_PDF_MAP[categoryKey.toLowerCase().trim()]) ||
     "";
 
+  const location = useLocation();
+  const currentPath = location?.pathname || "";
+
+  const otherProjects = (PROJECT_DATA || [])
+    .filter((p) => {
+      if (!p || !p.detailPath) return false;
+      // 1) Match by route path
+      if (currentPath && currentPath.toLowerCase().includes(p.detailPath.toLowerCase())) {
+        return false;
+      }
+      // 2) Match by projectName / title
+      const pTitle = (p.title || "").toLowerCase();
+      const currentProjName = (projectName || "").toLowerCase();
+      if (currentProjName && pTitle === currentProjName) {
+        return false;
+      }
+      // 3) Special check for CP Axtra Mile / Smart Adviser
+      if (
+        (currentProjName.includes("axtra") || currentProjName.includes("smart adviser") || currentProjName.includes("makro")) &&
+        (pTitle.includes("axtra") || pTitle.includes("smart adviser") || pTitle.includes("makro"))
+      ) {
+        return false;
+      }
+      // 4) Focus Room check
+      if (currentProjName.includes("focus room") && pTitle.includes("focus room")) {
+        return false;
+      }
+      // 5) HerEvidence check
+      if (currentProjName.includes("herevidence") && pTitle.includes("herevidence")) {
+        return false;
+      }
+      // 6) SIT Hippo check
+      if (
+        (currentProjName.includes("hippo") || currentProjName.includes("sit hello world")) &&
+        (pTitle.includes("hippo") || pTitle.includes("sit hello world"))
+      ) {
+        return false;
+      }
+      return true;
+    })
+    .map((p) => ({
+      ...p,
+      role: typeof p.role === "object" ? p.role[lang] || p.role.EN : p.role,
+      period: typeof p.period === "object" ? p.period[lang] || p.period.EN : p.period,
+      subtitle: typeof p.subtitle === "object" ? p.subtitle[lang] || p.subtitle.EN : p.subtitle,
+      description: typeof p.description === "object" ? p.description[lang] || p.description.EN : p.description,
+      tag: typeof p.tag === "object" ? p.tag[lang] || p.tag.EN : p.tag,
+    }));
+
   const handleScrollToContact = () => {
     if (onContactClick) {
       onContactClick();
@@ -737,7 +802,7 @@ export default function ProjectDetailTemplate({
           </div>
 
           {/* Language Switcher */}
-          <div 
+          <div
             className="flex items-center bg-neutral-100 p-0.5 rounded-full border border-neutral-300 select-none flex-shrink-0"
             role="group"
             aria-label="Language switcher"
@@ -745,22 +810,20 @@ export default function ProjectDetailTemplate({
             <button
               type="button"
               onClick={() => setLang && setLang('TH')}
-              className={`px-2.5 py-0.5 text-[11px] sm:text-xs font-semibold rounded-full transition-all duration-300 cursor-pointer ${
-                lang === 'TH'
-                  ? 'bg-secondary text-white shadow-xs'
-                  : 'text-neutral-600 hover:text-black hover:bg-neutral-200/60'
-              }`}
+              className={`px-2.5 py-0.5 text-[11px] sm:text-xs font-semibold rounded-full transition-all duration-300 cursor-pointer ${lang === 'TH'
+                ? 'bg-secondary text-white shadow-xs'
+                : 'text-neutral-600 hover:text-black hover:bg-neutral-200/60'
+                }`}
             >
               TH
             </button>
             <button
               type="button"
               onClick={() => setLang && setLang('EN')}
-              className={`px-2.5 py-0.5 text-[11px] sm:text-xs font-semibold rounded-full transition-all duration-300 cursor-pointer ${
-                lang === 'EN'
-                  ? 'bg-secondary text-white shadow-xs'
-                  : 'text-neutral-600 hover:text-black hover:bg-neutral-200/60'
-              }`}
+              className={`px-2.5 py-0.5 text-[11px] sm:text-xs font-semibold rounded-full transition-all duration-300 cursor-pointer ${lang === 'EN'
+                ? 'bg-secondary text-white shadow-xs'
+                : 'text-neutral-600 hover:text-black hover:bg-neutral-200/60'
+                }`}
             >
               EN
             </button>
@@ -803,36 +866,18 @@ export default function ProjectDetailTemplate({
                 href={resolvedPdfFile}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full border border-[#8f3030]/30 bg-[#FFF5CF]/70 text-[#610200] hover:bg-[#610200] hover:text-white hover:border-[#610200] font-poppins font-semibold text-xs sm:text-sm shadow-xs hover:shadow-md hover:scale-[1.02] active:scale-98 transition-all duration-300 group cursor-pointer"
+                className="inline-flex items-center  gap-2.5 px-5 py-2.5 rounded-full border border-[#8f3030]/30 bg-[#FFF5CF]/70 text-[#610200] hover:bg-[#610200] hover:text-white hover:border-[#610200] font-poppins font-semibold text-xs sm:text-sm shadow-xs hover:shadow-md hover:scale-[1.02] active:scale-98 transition-all duration-300 group cursor-pointer"
               >
-                <svg
-                  className="w-4 h-4 fill-none stroke-currentColor stroke-2 transition-transform group-hover:scale-110"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-                  />
-                </svg>
+                <PresentationChartLine className="w-4 h-4 transition-transform group-hover:scale-110" />
                 <span>{tl.presentationPdfBtn || "Presentation"}</span>
-                <svg
-                  className="w-3.5 h-3.5 fill-none stroke-currentColor stroke-2 transition-transform group-hover:translate-x-1"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                  />
-                </svg>
+                
               </a>
             </div>
           )}
         </div>
 
         {/* ─── Content Sections (Left Black Border Bar) ─── */}
-        <div className="max-w-3xl space-y-6">
+        <div className="max-full space-y-6">
           <Section title={tl.overview}>
             <p className="text-xs sm:text-sm text-neutral-800 font-poppins leading-relaxed whitespace-pre-line">
               {overview}
@@ -863,43 +908,67 @@ export default function ProjectDetailTemplate({
               )}
             </ul>
           </Section>
-        </div>
 
-        {/* ─── Footer / Navigation & CTA Buttons ─── */}
-        <div className="mt-16 sm:mt-24 pt-8 border-t border-neutral-200">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            {/* ปุ่มดูงานอื่นเพิ่มเติม (กลับไปที่ Section Projects.jsx) */}
-            <Link
-              to="/home?category=all#projects"
-              state={{ category: "all" }}
-              onClick={handleBackToProjects}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-3.5 rounded-full border-2 border-[#610200] bg-white text-[#610200] hover:bg-[#610200] hover:text-white font-poppins font-bold text-sm shadow-xs hover:shadow-md hover:scale-[1.02] active:scale-98 transition-all duration-300 group cursor-pointer"
-            >
-              <svg
-                className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2.5}
-                  d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-                />
-              </svg>
-              <span>{tl.viewMoreProjects}</span>
-            </Link>
-
-            {/* ปุ่มติดต่อเพื่อร่วมงานกัน */}
+          {/* ปุ่มติดต่อเพื่อร่วมงานกัน (สไตล์เดียวกับหน้า Home พร้อม Shine Effect และรองรับ Responsive) */}
+          <div className="flex justify-end mt-6 w-full">
             <button
               type="button"
               onClick={handleScrollToContact}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-[#FDEFC9] text-[#610200] font-poppins font-bold text-sm border border-[#E3C985] shadow-xs hover:bg-[#fae7b0] hover:shadow-md hover:scale-[1.02] active:scale-98 transition-all duration-300 cursor-pointer text-center"
+              className="
+                group
+                relative
+                overflow-hidden
+                w-full sm:w-auto
+                inline-flex
+                items-center
+                justify-center
+                gap-3
+                rounded-full
+                border
+                border-[#610200]/40
+                bg-[#610200]
+                px-6 sm:px-8
+                py-3 sm:py-3.5
+                font-poppins
+                text-xs sm:text-sm md:text-base
+                font-semibold
+                text-white
+                shadow-[0_8px_25px_rgba(97,2,0,0.22)]
+                transition-all
+                duration-300
+                hover:-translate-y-1
+                hover:border-[#610200]
+                hover:bg-[#820000]
+                hover:shadow-[0_12px_35px_rgba(97,2,0,0.35)]
+                active:translate-y-0
+                active:scale-95
+                cursor-pointer
+              "
             >
-              <span>{tl.ctaBtn}</span>
+              {/* Shine Effect */}
+              <span
+                className="
+                  absolute
+                  inset-y-0
+                  -left-1/2
+                  w-1/3
+                  rotate-12
+                  bg-white/30
+                  blur-md
+                  transition-all
+                  duration-700
+                  group-hover:left-[120%]
+                "
+              />
+
+              {/* Button Text */}
+              <span className="relative z-10">
+                {tl.ctaBtn}
+              </span>
+
+              {/* Arrow Icon */}
               <svg
-                className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -913,7 +982,156 @@ export default function ProjectDetailTemplate({
               </svg>
             </button>
           </div>
+
         </div>
+
+        {/* ─── Other Projects Showcase Cards (งานอื่นๆ ที่น่าสนใจ) ─── */}
+        {otherProjects.length > 0 && (
+          <section className="mt-20 sm:mt-24 pt-10 border-t border-neutral-200">
+            {/* Header of Other Projects */}
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFF5CF] border border-[#E3C985] text-[#610200] text-xs font-semibold uppercase tracking-wider mb-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#610200]" />
+                  {tl.otherProjectsBadge}
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#171313] font-poppins tracking-tight">
+                  {tl.otherProjectsTitle}
+                </h2>
+                <p className="text-xs sm:text-sm text-neutral-500 mt-1 font-poppins">
+                  {tl.otherProjectsSub}
+                </p>
+              </div>
+
+              {/* Quick link to see all projects on Home page */}
+              <Link
+                to="/home?category=all#projects"
+                state={{ category: "all" }}
+                onClick={handleBackToProjects}
+                className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#610200] hover:text-[#820000] transition-colors group cursor-pointer self-start sm:self-auto"
+              >
+                <span>{tl.backToAllProjects}</span>
+                <svg
+                  className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </Link>
+            </div>
+
+            {/* Grid of Other Projects Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+              {otherProjects.map((proj) => (
+                <div
+                  key={proj.id}
+                  className="group flex flex-col rounded-2xl sm:rounded-3xl border border-neutral-200/90 bg-white p-4 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 text-neutral-900"
+                >
+                  {/* Project Cover Image */}
+                  {proj.image && (
+                    <Link
+                      to={proj.detailPath}
+                      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                      className="relative h-44 sm:h-48 w-full shrink-0 overflow-hidden rounded-xl sm:rounded-2xl bg-neutral-100 block cursor-pointer"
+                    >
+                      <img
+                        src={proj.image}
+                        alt={proj.title}
+                        className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent pointer-events-none" />
+                      {proj.tag && (
+                        <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-[10.5px] font-semibold bg-white/95 backdrop-blur-md text-[#610200] shadow-2xs border border-white/60">
+                          {proj.tag}
+                        </span>
+                      )}
+                    </Link>
+                  )}
+
+                  {/* Card Body */}
+                  <div className="flex flex-1 flex-col pt-4 px-1 pb-1">
+                    <Link
+                      to={proj.detailPath}
+                      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                      className="text-base sm:text-lg font-bold text-neutral-900 group-hover:text-[#610200] transition-colors line-clamp-1 leading-snug cursor-pointer"
+                    >
+                      {proj.title}
+                    </Link>
+
+                    {proj.subtitle && (
+                      <p className="text-[11.5px] font-medium text-neutral-500 mt-1 line-clamp-1">
+                        {proj.subtitle}
+                      </p>
+                    )}
+
+                    <div className="h-px bg-neutral-100 my-3.5" />
+
+                    {/* Metadata: Role & Period */}
+                    <div className="space-y-1.5 text-xs">
+                      <div className="flex items-center justify-between text-[11px]">
+                        <span className="text-neutral-400 font-medium uppercase tracking-wider">{tl.roleLabel}</span>
+                        <span className="font-semibold text-neutral-800">{proj.role}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-[11px]">
+                        <span className="text-neutral-400 font-medium uppercase tracking-wider">{tl.periodLabel}</span>
+                        <span className="font-medium text-neutral-600">{proj.period}</span>
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="mt-5 pt-3 border-t border-neutral-100 flex items-center gap-2">
+                      <Link
+                        to={proj.detailPath}
+                        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                        className="flex flex-1 items-center justify-center gap-2 py-2.5 px-4 rounded-full bg-[#610200] hover:bg-[#820000] text-white text-xs font-bold font-poppins shadow-xs hover:shadow-md hover:scale-[1.02] active:scale-98 transition-all duration-300 group/btn cursor-pointer"
+                      >
+                        <span>{tl.viewProjectBtn}</span>
+                        <svg
+                          className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                          />
+                        </svg>
+                      </Link>
+
+                      {proj.pdfFile && (
+                        <a
+                          href={proj.pdfFile}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center py-2.5 px-3.5 rounded-full border border-neutral-300 bg-neutral-50 hover:bg-neutral-100 hover:border-neutral-400 text-neutral-700 text-xs font-semibold transition-all duration-200 cursor-pointer"
+                          title={tl.viewSlideBtn}
+                        >
+                          <svg className="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          <span className="hidden sm:inline ml-1.5">{tl.viewSlideBtn}</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+
+
       </div>
 
       <BackToTop />

@@ -1,4 +1,4 @@
 npm run build
 git add .
-git commit -m "Update Button project detail + Add IDE in about page"
+git commit -m "Project Detail Page"
 git push

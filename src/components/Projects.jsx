@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 
-const PROJECT_DATA = [
+export const PROJECT_DATA = [
   // {
   //   id: 1,
   //   title: 'ONEPUT TECHNOLOGY COMPANY LIMITED',
